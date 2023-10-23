@@ -1,0 +1,5 @@
+CREATE TABLE voluntario (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    nome TEXT NOT NULL,
+    ra TEXT NOT NULL
+);
