@@ -37,6 +37,23 @@ form{
     border-radius: 10px;
 }
 
+.form-oficina{
+
+    width: 100vh;
+
+    height: 80vh;
+
+}
+
+.form-entrar{
+
+    width: 60vh;
+
+    height: 70vh;
+
+}
+
+
 .usuario{
 
     padding: 10px;
@@ -99,6 +116,11 @@ select{
     border: none;
 
     cursor: pointer;
+}
+
+.login{
+
+    margin-top: 50px;
 }
 
 .botao-entrar:hover{
