@@ -103,7 +103,6 @@ function consultarTodos() {
 
 consultarTodos();
 
-
 function consultarNome(nome) {
     fetch(`http://localhost:8080/voluntario?nome=${nome}`, {
         method: "GET",
@@ -118,33 +117,26 @@ function consultarNome(nome) {
         return response.json();
     })
     .then(data => {
-        console.log(data);
-
         const resultsDiv = document.getElementById("results");
         resultsDiv.innerHTML = "";
 
-        data.forEach(result => {
-            if (result.nome && result.nome === nome) {
-                table.innerHTML = ""; 
+        if (data.length === 0) {
+            resultsDiv.textContent = "Nenhum resultado encontrado.";
+        } else {
+            const table = document.querySelector(".table-container table");
+
+            data.forEach(result => {
                 const novaLinha = document.createElement("tr");
-                novaLinha.classList.add("destaque");
-            
-                const resultElement = document.createElement("p");
-                resultsDiv.appendChild(resultElement);
-            
-                const table = document.querySelector(".table-container table");
-                
-            
+
                 for (const campo in result) {
                     const novoCampo = document.createElement("td");
                     novoCampo.textContent = result[campo];
                     novaLinha.appendChild(novoCampo);
                 }
-                
-            
+
                 table.appendChild(novaLinha);
-            }
-        });
+            });
+        }
     })
     .catch(error => {
         console.error("Erro na solicitação:", error);
@@ -160,6 +152,5 @@ document.getElementById("inserirbusca").addEventListener("click", function () {
     
 
 });
-
 
 
