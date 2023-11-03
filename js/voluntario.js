@@ -153,4 +153,3 @@ document.getElementById("inserirbusca").addEventListener("click", function () {
 
 });
 
-

@@ -3,10 +3,12 @@ package com.ellp.ellp.controllers;
 import com.ellp.ellp.domain.voluntario.RequestVoluntario;
 import com.ellp.ellp.domain.voluntario.Voluntario;
 import com.ellp.ellp.domain.voluntario.VoluntarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -19,12 +21,39 @@ public class VoluntarioControllers {
     private VoluntarioRepository repository;
 
     @GetMapping
-    public ResponseEntity getAllProducts()
+    public ResponseEntity getAllVoluntarios()
     {
         var AllVoluntarios = repository.findAllByActiveTrue();
 
         return ResponseEntity.ok(AllVoluntarios);
     }
+
+    @GetMapping("/byName")
+    public ResponseEntity getVoluntarioByName(@RequestParam String nome) {
+        Optional<Voluntario> optionalVoluntario = repository.findByNome(nome);
+
+        if (optionalVoluntario.isPresent()) {
+            Voluntario voluntario = optionalVoluntario.get();
+            return ResponseEntity.ok(voluntario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getOneVoluntario(@PathVariable String id) {
+        Optional<Voluntario> optionalVoluntario = repository.findById(id);
+
+        if (optionalVoluntario.isPresent()) {
+            Voluntario voluntario = optionalVoluntario.get();
+            return ResponseEntity.ok(voluntario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 
     @PostMapping
     public ResponseEntity registrarVoluntario(@RequestBody @Valid RequestVoluntario data ){
@@ -57,15 +86,14 @@ public class VoluntarioControllers {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deleteVoluntario(@PathVariable String id){
-        Optional <Voluntario> optionalVoluntario = repository.findById(id);
-        if(optionalVoluntario.isPresent()){
-            Voluntario voluntario = optionalVoluntario.get();
-            voluntario.setActive(false);
+        Optional<Voluntario> optionalProduct = repository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Voluntario product = optionalProduct.get();
+            product.setActive(false);
             return ResponseEntity.noContent().build();
-        }else{
-            return ResponseEntity.notFound().build();
+        } else {
+            throw new EntityNotFoundException();
         }
-
     }
 
 

@@ -30,38 +30,75 @@
         <ul>
         
             <li class="opcoes-voluntarios">
-               
-                <a href="#">Voluntários</a>
-               
-                <ul class="dropdown-content">
-                 
-                    <li><a href="registrar.html">Registrar</a></li>
-                  
-                    <li><a href="consultar.html">Consultar</a></li>
-                 
-                    <li><a href="#">Atualizar</a></li>
-               
-                </ul>
+
+                    <img src="./img/voluntarios.png" alt="" class="voluntarios">
+                
+                    <a href="#" onclick="abrirPainelVoluntario()">Voluntários</a>
            
             </li>
+
+            <div id="painelVoluntario" style="display: none;">
+                
+                <li>
+                    <a href="registrar.html">Registrar</a>
+                    
+                </li>
+                
+              
+                <li>
+                    
+                    <a href="consultar.html">Consultar</a>
+
+                </li>
+             
+                <li>
+
+                    <a href="#">Atualizar</a>
+
+                </li>
+           
+            </div>
         
             <li class="opcoes-oficinas">
-               
-                <a href="#">Oficinas</a>
 
-                <ul class="dropdown-content">
-                 
-                    <li><a href="registrar-oficina.html">Registrar</a></li>
-
-                    <li><a href="consultar-oficina.html">Consultar</a></li>
+                <img src="./img/oficinas.png" alt="" class="voluntarios">
                
-                </ul>
+                <a href="#" onclick="abrirPainelOficina()">Oficinas</a>
             
             </li>
-        
-            <li><a href="#">Configurações</a></li>
-        
-            <li><a href="#">Relatórios</a></li>
+
+            <div id="painelOficina" style="display: none;">
+                
+               
+                <li>
+
+                    <a href="registrar-oficina.html">Registrar</a>
+
+                </li>
+
+                <li>
+
+                    <a href="consultar-oficina.html">Consultar</a>
+
+                </li>
+             
+                <li>
+
+                    <a href="#">Atualizar</a>
+
+                </li>
+           
+            </div>
+          
+
+
+            <li class="opcoes-termo">
+
+                    <img src="./img/termo.png" alt="" class="voluntarios">
+                
+                    <a href="#">Relatórios</a>
+
+            </li>
         
         </ul>
       
@@ -77,10 +114,7 @@
 
 
 
-    
 
-    <main></main>
-
-    <script src="./js/script.js"></script>
+    <script src="./js/principal.js"></script>
 </body>
 </html>

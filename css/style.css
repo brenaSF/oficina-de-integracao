@@ -84,6 +84,19 @@ main {
 
 }
 
+.container{
+
+  display: inline-block;
+
+}
+
+.voluntarios {
+
+  width: 25px; 
+
+  height: auto;
+
+}
 
 .sidebar {
    
@@ -125,7 +138,7 @@ main {
    
     padding: 10px;
    
-    margin-left: 50px;
+    margin-left: 10px;
   
   }
   
@@ -135,6 +148,12 @@ main {
     
     text-decoration: none;
   
+}
+
+.dropdown-content a {
+
+  margin-left: 20px;
+
 }
 
   .content {
