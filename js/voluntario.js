@@ -19,7 +19,7 @@ function registrar() {
     fetch("http://localhost:8080/voluntario", {
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json" // Correção de digitação
+            "Content-Type": "application/json" 
         },
         method: "POST",
         body: JSON.stringify({
@@ -117,25 +117,40 @@ function consultarNome(nome) {
         return response.json();
     })
     .then(data => {
-        const resultsDiv = document.getElementById("results");
-        resultsDiv.innerHTML = "";
+
+        let usuariosData = [];
+        usuariosData = data.voluntario;
+
+        var pesquisarTerm = document.getElementById("barraPesquisa").value;
+
+        var resultadosUl = document.getElementById("resultados");
+        resultadosUl.innerHTML = "";
 
         if (data.length === 0) {
-            resultsDiv.textContent = "Nenhum resultado encontrado.";
+            resultadosUl.textContent = "Nenhum resultado encontrado.";
         } else {
-            const table = document.querySelector(".table-container table");
+            for (var i = 0; i < usuariosData.length; i++) {
 
-            data.forEach(result => {
-                const novaLinha = document.createElement("tr");
-
-                for (const campo in result) {
-                    const novoCampo = document.createElement("td");
-                    novoCampo.textContent = result[campo];
-                    novaLinha.appendChild(novoCampo);
+                if (usuariosData[i].nickname.includes(pesquisarTerm)) { 
+    
+                    var lista = document.createElement("button");
+    
+                    lista.classList.add("nicknameBotao");
+    
+                    lista.textContent = usuariosData[i].nickname;
+    
+                    lista.setAttribute("data-nickname", usuariosData[i].nickname);
+    
+                    lista.style.cursor = "pointer";
+    
+                    lista.addEventListener("click", function () {
+                        var nickname = this.getAttribute("data-nickname");
+                        window.location.href = '/perfil-visitado?nickname=' + nickname;
+                    });
+    
+                    resultadosUl.appendChild(lista);
                 }
-
-                table.appendChild(novaLinha);
-            });
+            }
         }
     })
     .catch(error => {
@@ -146,10 +161,10 @@ function consultarNome(nome) {
 
 
 
-document.getElementById("inserirbusca").addEventListener("click", function () {
-    const nome = document.getElementById("searchInput").value; 
-    consultarNome(nome);
-    
+var barraPesquisa = document.getElementById("barraPesquisa");
+
+barraPesquisa.addEventListener("input", function () {
+
+    consultarNome();
 
 });
-

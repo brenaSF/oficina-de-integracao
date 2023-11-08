@@ -10,9 +10,9 @@
 
     <title>Consultar</title>
 
-    <link rel="stylesheet" href="./css/consultar.css">
+    <link rel="stylesheet" href="../css/consultar.css">
 
-    <link rel="shortcut icon" href="./img/ellp_logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
 
 </head>
 
@@ -22,9 +22,9 @@
 
     <form>
 
-        <button type="button" id="inserirbusca">Consultar</button>
+        <input type="text" id="barraPesquisa" placeholder="Digite o nickname" oninput="consultarNome()"> <!-- Espaço de escrita do nick -->
 
-        <input type="text" id="searchInput" placeholder="Digite sua consulta">
+        <div id="resultados"></div> <!-- Resultados da pesquisa -->
 
     </form>
 
@@ -36,12 +36,19 @@
             
             <tr>
                 <th>ID</th>
+
                 <th>Nome</th>
+
                 <th>RA</th>
+
                 <th>Email</th>
+
                 <th>Telefone</th>
+                
                 <th>Curso</th>
+
                 <th>Período</th>
+                
                 <th>Ativo</th>
            
             </tr>
@@ -50,7 +57,7 @@
         </table>
     </div>
     
-    <script src="./js/voluntario.js"></script>
+    <script src="../js/voluntario.js"></script>
     
 </body>
 </html>

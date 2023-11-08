@@ -17,7 +17,6 @@ body{
 }
 
 
-
 form{
 
     background-color: white;
@@ -49,8 +48,13 @@ form{
 
     width: 60vh;
 
-    height: 70vh;
+    height: 60vh;
 
+}
+
+p{
+
+    color: black;
 }
 
 
@@ -131,3 +135,5 @@ select{
 
     border: 2px solid #1E90FF;
 }
+
+

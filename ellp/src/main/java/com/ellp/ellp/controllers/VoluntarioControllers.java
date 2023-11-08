@@ -52,9 +52,6 @@ public class VoluntarioControllers {
         }
     }
 
-
-
-
     @PostMapping
     public ResponseEntity registrarVoluntario(@RequestBody @Valid RequestVoluntario data ){
         Voluntario newVoluntario = new Voluntario(data);

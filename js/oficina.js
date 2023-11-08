@@ -6,13 +6,13 @@ logoElement.addEventListener("click", function () {
     window.location.href = "principal.html"; 
 });
 
-
+const formulario = document.querySelector("form");
 
 function registrar() {
     const nome = document.querySelector(".nome").value;
-    const data_oficina = document.querySelector(".data").value;
-    const horario = document.querySelector(".horario").value;
     const qtParticipantes = document.querySelector(".qtParticipantes").value;
+    const data_oficina = document.querySelector(".data_oficina").value;
+    const horario = document.querySelector(".horario").value;
 
     fetch("http://localhost:8080/oficina", {
         headers: {
@@ -22,9 +22,9 @@ function registrar() {
         method: "POST",
         body: JSON.stringify({
             nome_oficina: nome,
+            qt_participantes: qtParticipantes,
             data: data_oficina,
-            horario: horario,
-            qtParticipantes: qtParticipantes,
+            horario: horario
     
         })
     })
@@ -36,7 +36,21 @@ function registrar() {
     });
 }
 
-registrar();
+function limpar() {
+    document.querySelector(".nome").value = "";
+    document.querySelector(".qtParticipantes").value = ""; 
+    document.querySelector(".data_oficina").value = ""; 
+    document.querySelector(".horario").value = "";
+   
+}
+
+formulario.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    registrar();
+    limpar();
+});
+
 
 
 
