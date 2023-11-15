@@ -14,7 +14,8 @@ import lombok.*;
 
 public class Voluntario {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_voluntario;
 
     private String nome;
