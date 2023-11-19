@@ -33,6 +33,19 @@ header {
 }
 
 
+header a {
+  color: #1E90FF;
+
+  text-decoration: none;
+
+  margin-left: 200vh;
+
+  margin-top: 10px;
+
+}
+
+
+
 h1{
 
     margin-top: 10px;
@@ -146,7 +159,7 @@ main {
     
     text-decoration: none;
   
-}
+  }
 
 .dropdown-content a {
 
@@ -173,3 +186,24 @@ main {
 
   }
 
+  table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+td.editavel {
+    cursor: pointer;
+}
+
+input {
+    width: 100%;
+}

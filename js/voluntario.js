@@ -15,6 +15,7 @@ function registrar() {
     const telefone = document.querySelector(".telefone").value;
     const curso = document.querySelector(".curso").value;
     const periodo = document.querySelector(".periodo").value;
+    const horas_voluntariadas = document.querySelector(".horas_voluntariadas").value;
 
     fetch("http://localhost:8080/voluntario", {
         headers: {
@@ -28,7 +29,8 @@ function registrar() {
             email: email,
             telefone: telefone,
             curso: curso,
-            periodo: periodo
+            periodo: periodo,
+            horas_voluntariadas : horas_voluntariadas
     
         })
     })
@@ -48,6 +50,8 @@ function limpar() {
     document.querySelector(".telefone").value = ""; 
     document.querySelector(".curso").value = "";
     document.querySelector(".periodo").value = ""; 
+    document.querySelector(".horas_voluntariadas").value = ""; 
+
 }
 
 formulario.addEventListener("submit", function(event) {

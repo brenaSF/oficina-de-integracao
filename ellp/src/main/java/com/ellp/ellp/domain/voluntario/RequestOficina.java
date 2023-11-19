@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record RequestOficina(
 
-        Long id_oficina,
+        String id_oficina,
 
         @NotBlank
         String nome_oficina,
@@ -15,6 +15,9 @@ public record RequestOficina(
         String data,
 
         @NotBlank
-        String horario
+        String horarioinicio,
+
+        @NotBlank
+        String horariofim
 )
 {}

@@ -16,7 +16,7 @@ public class Voluntario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_voluntario;
+    private String id_voluntario;
 
     private String nome;
 
@@ -32,6 +32,8 @@ public class Voluntario {
 
     private Boolean active;
 
+    private String horas_voluntariadas;
+
     public Voluntario(RequestVoluntario requestVoluntario){
         this.nome = requestVoluntario.nome();
         this.ra = requestVoluntario.ra();
@@ -40,6 +42,7 @@ public class Voluntario {
         this.curso = requestVoluntario.curso();
         this.periodo = requestVoluntario.periodo();
         this.active = true;
+        this.horas_voluntariadas=requestVoluntario.horas_voluntariadas();
 
     }
 
@@ -71,4 +74,9 @@ public class Voluntario {
     public void setActive(boolean b) {
         this.active = active;
     }
+
+    public void setHorasVoluntariadas(String horas_voluntariadas) {
+        this.horas_voluntariadas = horas_voluntariadas;
+    }
+
 }

@@ -50,3 +50,34 @@ th {
     background-color: #f2f2f2; 
 
 }
+
+.botao-salvar {
+
+    background-color: #4CAF50; 
+
+    color: white; 
+    
+    padding: 10px 15px; 
+    
+    font-size: 16px;
+    
+    border: none; 
+    
+    border-radius: 5px;
+    
+    cursor: pointer; 
+
+    margin-left: 47%;
+
+    margin-top: 25px;
+
+}
+
+
+.botao-salvar:hover {
+
+    background-color: white;
+
+    color: #4CAF50;
+
+}

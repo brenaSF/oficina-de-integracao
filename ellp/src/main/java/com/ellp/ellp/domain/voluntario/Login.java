@@ -28,13 +28,5 @@ public class Login {
 
     }
 
-        public void setNome(String nome) {  this.nome= nome;  }
-        public void setSenha(String senha) { this.senha= senha;  }
-        public void setActive(boolean b) {
-        this.active = active;
-    }
-
-
-
 }
 

@@ -16,25 +16,28 @@ public class Oficina {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_oficina;
+    private String id_oficina;
 
     private String nome_oficina;
 
     private Integer qt_participantes;
 
-    private  String data;
+    private String data;
 
-    private String horario;
+    private String horarioinicio;
 
     private Boolean active;
+
+    private String horariofim;
+
 
     public Oficina(RequestOficina requestOficina){
         this.nome_oficina = requestOficina.nome_oficina();
         this.qt_participantes = requestOficina.qt_participantes();
         this.data = requestOficina.data();
-        this.horario = requestOficina.horario();
+        this.horarioinicio= requestOficina.horarioinicio();
         this.active = true;
-
+        this.horariofim=requestOficina.horariofim();
     }
 
     public void setNome_oficina(String nome_oficina) {
@@ -49,9 +52,12 @@ public class Oficina {
         this.data = data;
     }
 
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
+    public void setHorarioinicio(String horarioinicio){this.horarioinicio=horarioinicio;}
+
+    public void setHorariofim(String horariofim){this.horariofim=horariofim;}
+
+
+
 
 }
 

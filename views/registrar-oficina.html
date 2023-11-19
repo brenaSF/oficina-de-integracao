@@ -7,7 +7,7 @@
 
     <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/registrar.css">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
         <img src="../img/ellp_logo.png" class="logo" id="logo">
 
 
-        <form >
+        <form id="form-oficina">
 
             <h2>Registrar Oficina</h2>
 
@@ -24,21 +24,34 @@
 
             <input type="text" name="nome" id="nome" class="usuario nome"><br>
 
-            <label for="qtParticipantes"><b>Quantidade de participantes:</b></label>
+            <label for="qt_participantes"><b>Quantidade de participantes:</b></label>
 
-            <input type="text" name="qtParticipantes" id="qtParticipantes" class="usuario qtParticipantes"><br>
+            <input type="text" name="qt_participantes" id="qt_participantes" class="usuario qt_participantes"><br>
 
-            <label for="data_oficina"><b>Data: </b></label>
+            <label for="data"><b>Data: </b></label>
             
-            <input type="text" name="data_oficina" id="data_oficina"  class="usuario data_oficina"><br>
+            <input type="date" name="data" id="data"  class="usuario data"><br>
 
-            <label for="horario"><b>Horario: </b></label>
+            <label for="horarioinicio"><b>Horario de início: </b></label>
             
-            <input type="text" name="horario" id="horario" class="usuario horario">
+            <input type="time" name="horarioinicio" id="horarioinicio" class="usuario horarioinicio"><br>
+
+            <label for="horariofim"><b>Horario de fim: </b></label>
+            
+            <input type="time" name="horariofim" id="horariofim" class="usuario horariofim"><br>
+
+            <label for="Voluntário"><b>Voluntário: </b></label>
+
+            <input type="text" name="Voluntário" class="usuario voluntario"><br>
+
+            <div class="result"></div>
     
+            <button class="botao-addVoluntario" onclick="adicionarCampo()">Adicionar Voluntários Participantes</button>
+
             <button class="botao-entrar" type="submit">Registrar</button>
-    
+
         </form>
+
 
     </div>
 

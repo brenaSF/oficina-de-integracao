@@ -8,10 +8,19 @@ function abrirPainelVoluntario() {
 }
 
 function abrirPainelOficina() {
-    var painelVoluntario = document.getElementById("painelOficina");
-    if (painelVoluntario.style.display === "none" || painelVoluntario.style.display === "") {
-        painelVoluntario.style.display = "block";
+    var painelOficina = document.getElementById("painelOficina");
+    if (painelOficina.style.display === "none" || painelOficina.style.display === "") {
+        painelOficina.style.display = "block";
     } else {
-        painelVoluntario.style.display = "none";
+        painelOficina.style.display = "none";
+    }
+}
+
+function abrirPainelUsuario() {
+    var PainelUsuario = document.getElementById("PainelUsuario");
+    if (PainelUsuario.style.display === "none" || PainelUsuario.style.display === "") {
+        PainelUsuario.style.display = "block";
+    } else {
+        PainelUsuario.style.display = "none";
     }
 }

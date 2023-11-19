@@ -1,6 +1,7 @@
 package com.ellp.ellp.controllers;
 
 import com.ellp.ellp.domain.voluntario.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class LoginControllers {
 
     @Autowired
-    private UsuarioRepository repository;
+    private LoginRepository repository;
 
     @GetMapping
     public ResponseEntity getAllVoluntarios()
@@ -43,6 +44,16 @@ public class LoginControllers {
         System.out.println(data);
         repository.save(newUsuario);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deleteLogin(@PathVariable("id") Long id_login){
+        if(repository.existsById(String.valueOf(id_login))){
+            repository.deleteById(String.valueOf(id_login));
+        }
+        return ResponseEntity.noContent().build();
+
     }
 
 

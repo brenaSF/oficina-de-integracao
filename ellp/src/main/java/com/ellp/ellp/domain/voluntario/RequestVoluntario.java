@@ -22,6 +22,9 @@ public record RequestVoluntario(
         String curso,
 
         @NotBlank
-        String periodo
+        String periodo,
+
+        @NotBlank
+        String horas_voluntariadas
 ) {
 }

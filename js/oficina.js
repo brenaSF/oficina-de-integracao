@@ -10,37 +10,48 @@ const formulario = document.querySelector("form");
 
 function registrar() {
     const nome = document.querySelector(".nome").value;
-    const qtParticipantes = document.querySelector(".qtParticipantes").value;
-    const data_oficina = document.querySelector(".data_oficina").value;
-    const horario = document.querySelector(".horario").value;
+    const qt_participantes = document.querySelector(".qt_participantes").value;
+    const data = document.querySelector(".data").value;
+    const horarioinicio = document.querySelector(".horarioinicio").value;
+    const horariofim = document.querySelector(".horariofim").value;
+
 
     fetch("http://localhost:8080/oficina", {
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json" // Correção de digitação
+            "Content-Type": "application/json" 
         },
         method: "POST",
         body: JSON.stringify({
             nome_oficina: nome,
-            qt_participantes: qtParticipantes,
-            data: data_oficina,
-            horario: horario
+            qt_participantes: qt_participantes,
+            data: data,
+            horarioinicio: horarioinicio,
+            horariofim : horariofim
     
         })
     })
     .then(function(res) {
-        console.log(res);
+        if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+    })
+    .then(function(data) {
+        console.log(data);
     })
     .catch(function(error) {
-        console.error(error);
+        console.error('Error:', error);
     });
 }
 
 function limpar() {
     document.querySelector(".nome").value = "";
-    document.querySelector(".qtParticipantes").value = ""; 
-    document.querySelector(".data_oficina").value = ""; 
-    document.querySelector(".horario").value = "";
+    document.querySelector(".qt_participantes").value = ""; 
+    document.querySelector(".data").value = ""; 
+    document.querySelector(".horarioinicio").value = "";
+    document.querySelector(".horariofim").value = "";
+
    
 }
 
@@ -50,7 +61,6 @@ formulario.addEventListener("submit", function(event) {
     registrar();
     limpar();
 });
-
 
 
 
@@ -77,19 +87,19 @@ function consultarTodosOficina() {
             const resultElement = document.createElement("p");
             resultsDiv.appendChild(resultElement);
             
-            // Selecione a tabela
             const table = document.querySelector(".table-container table");
             
             const novaLinha = document.createElement("tr");
             
-            for (const campo in result) {
+            const atributosExibidos = ["id_oficina", "nome_oficina", "qt_participantes","data", "horarioinicio","active"]; 
+
+            atributosExibidos.forEach(campo => {
                 const novoCampo = document.createElement("td");
                 novoCampo.textContent = result[campo];
                 novaLinha.appendChild(novoCampo);
-            }
+            });
             
-            table.appendChild(novaLinha);            
-
+            table.appendChild(novaLinha);
         });
     })
     .catch(error => {
@@ -99,3 +109,17 @@ function consultarTodosOficina() {
 
 
 consultarTodosOficina();
+
+function adicionarCampo() {
+    var novoCampo = document.createElement("input");
+    novoCampo.type = "text";
+    novoCampo.name = "Voluntário";
+    novoCampo.className = "usuario voluntario";
+
+    var novoLabel = document.createElement("label");
+    novoLabel.innerHTML = "<b>Voluntário : </b>";
+
+    var divResult = document.querySelector('.result');
+    divResult.appendChild(novoLabel.cloneNode(true)); 
+    divResult.appendChild(novoCampo);
+}

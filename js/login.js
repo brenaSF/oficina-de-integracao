@@ -39,3 +39,11 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     }
 });
 
+
+function validateCredentials(nome, senha) {
+    if (!nome || !senha) {
+        return false;
+    }
+
+    return true;
+}
