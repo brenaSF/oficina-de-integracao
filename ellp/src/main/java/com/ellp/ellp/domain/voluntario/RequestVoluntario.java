@@ -25,6 +25,6 @@ public record RequestVoluntario(
         String periodo,
 
         @NotBlank
-        String horas_voluntariadas
+        String id_departamento
 ) {
 }

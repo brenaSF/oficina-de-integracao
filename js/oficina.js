@@ -123,3 +123,49 @@ function adicionarCampo() {
     divResult.appendChild(novoLabel.cloneNode(true)); 
     divResult.appendChild(novoCampo);
 }
+
+
+function consultarOficinaPorId() {
+    const id_oficina = document.getElementById("searchInput").value;
+
+    if (id_oficina.trim() !== "") {
+        fetch(`http://localhost:8080/oficina/${id_oficina}`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            updateDetailsInHTML(data);
+
+            console.log("Detalhes da oficina:", data);
+        })
+        .catch(error => {
+            console.error("Erro ao consultar oficina por id:", error);
+        });
+    } else {
+        console.error("ID da oficina não pode estar vazio.");
+    }
+}
+
+
+function updateDetailsInHTML(data) {
+
+    const detailsElement = document.getElementById("oficinaDetails");
+
+    detailsElement.innerHTML = `
+        <p>ID: ${data.id_oficina}</p>
+        <p>Nome: ${data.nome_oficina}</p>
+        <p>Quantidade de Participantes: ${data.quantidade_participantes}</p>
+        <p>Data: ${data.data}</p>
+        <p>Horário: ${data.horarioinicio}</p>
+        <p>Ativo: ${data.active}</p>
+    `;
+}

@@ -20,15 +20,10 @@
 
     <img src="../img/ellp_logo.png" class="logo" id="logo">
 
-    <form>
-
-        <input type="text" id="barraPesquisa" placeholder="Digite o nickname" oninput="consultarNome()"> <!-- Espaço de escrita do nick -->
-
-        <div id="resultados"></div> <!-- Resultados da pesquisa -->
-
-    </form>
 
     <div id="results"></div>
+
+    <h2>Dados Voluntários</h2>
 
     <div class="table-container">
         
@@ -59,6 +54,18 @@
        
         </table>
     </div>
+
+    <br>
+    <form class="consultar">
+
+        <button type="button" class="botao-inserirbusca" onclick="consultarOficinaPorId()">Consultar</button>
+
+        <input type="text" id="searchInput" placeholder="Digite sua consulta">
+
+    </form>
+
+    <div id="voluntarioDetails"></div>
+
     
     <script src="../js/voluntario.js"></script>
     

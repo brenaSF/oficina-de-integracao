@@ -27,6 +27,18 @@ public class OficinaControllers {
         return ResponseEntity.ok(AllOficinas);
     }
 
+    @GetMapping("/{id_oficina}")
+    public ResponseEntity getOficinaId(@PathVariable String id_oficina) {
+        Optional<Oficina> optionalOficina = oficinarepository.findById(id_oficina);
+
+        if (optionalOficina.isPresent()) {
+            Oficina oficina = optionalOficina.get();
+            return ResponseEntity.ok(oficina);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
         public ResponseEntity registrarOficina(@RequestBody @Valid RequestOficina data ){
         Oficina newOficina= new Oficina(data);

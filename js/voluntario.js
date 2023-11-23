@@ -15,7 +15,7 @@ function registrar() {
     const telefone = document.querySelector(".telefone").value;
     const curso = document.querySelector(".curso").value;
     const periodo = document.querySelector(".periodo").value;
-    const horas_voluntariadas = document.querySelector(".horas_voluntariadas").value;
+    const departamento = document.querySelector(".departamento").value;
 
     fetch("http://localhost:8080/voluntario", {
         headers: {
@@ -30,7 +30,7 @@ function registrar() {
             telefone: telefone,
             curso: curso,
             periodo: periodo,
-            horas_voluntariadas : horas_voluntariadas
+            departamento : departamento
     
         })
     })
@@ -107,68 +107,54 @@ function consultarTodos() {
 
 consultarTodos();
 
-function consultarNome(nome) {
-    fetch(`http://localhost:8080/voluntario?nome=${nome}`, {
-        method: "GET",
-        headers: {
-            "Accept": "application/json"
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erro na solicitação: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
+function consultarOficinaPorId() {
+    const id_voluntario = document.getElementById("searchInput").value;
 
-        let usuariosData = [];
-        usuariosData = data.voluntario;
-
-        var pesquisarTerm = document.getElementById("barraPesquisa").value;
-
-        var resultadosUl = document.getElementById("resultados");
-        resultadosUl.innerHTML = "";
-
-        if (data.length === 0) {
-            resultadosUl.textContent = "Nenhum resultado encontrado.";
-        } else {
-            for (var i = 0; i < usuariosData.length; i++) {
-
-                if (usuariosData[i].nickname.includes(pesquisarTerm)) { 
-    
-                    var lista = document.createElement("button");
-    
-                    lista.classList.add("nicknameBotao");
-    
-                    lista.textContent = usuariosData[i].nickname;
-    
-                    lista.setAttribute("data-nickname", usuariosData[i].nickname);
-    
-                    lista.style.cursor = "pointer";
-    
-                    lista.addEventListener("click", function () {
-                        var nickname = this.getAttribute("data-nickname");
-                        window.location.href = '/perfil-visitado?nickname=' + nickname;
-                    });
-    
-                    resultadosUl.appendChild(lista);
-                }
+    if (id_voluntario.trim() !== "") {
+        fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
             }
-        }
-    })
-    .catch(error => {
-        console.error("Erro na solicitação:", error);
-    });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            updateDetailsInHTML(data);
+
+            console.log("Detalhes da oficina:", data);
+        })
+        .catch(error => {
+            console.error("Erro ao consultar oficina por id:", error);
+        });
+    } else {
+        console.error("ID da oficina não pode estar vazio.");
+    }
 }
 
+function updateDetailsInHTML(data) {
+    const detailsElement = document.getElementById("voluntarioDetails");
+
+    detailsElement.innerHTML = `
+        <p>ID: ${data.id_voluntario}</p>
+        <p>Nome: ${data.nome}</p>
+        <p>RA: ${data.ra}</p>
+        <p>Email: ${data.email}</p>
+        <p>Telefone: ${data.telefone}</p>
+        <p>Curso: ${data.curso}</p>
+        <p>Período: ${data.periodo}</p>
+        <p>Ativo: ${data.active}</p>
+    `;
 
 
+}
 
-var barraPesquisa = document.getElementById("barraPesquisa");
+function imprimirCertificado() {
 
-barraPesquisa.addEventListener("input", function () {
-
-    consultarNome();
-
-});
+    window.print();
+}

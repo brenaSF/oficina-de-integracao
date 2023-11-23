@@ -1,5 +1,6 @@
 package com.ellp.ellp.controllers;
 
+import com.ellp.ellp.domain.voluntario.Oficina;
 import com.ellp.ellp.domain.voluntario.RequestVoluntario;
 import com.ellp.ellp.domain.voluntario.Voluntario;
 import com.ellp.ellp.domain.voluntario.VoluntarioRepository;
@@ -40,9 +41,9 @@ public class VoluntarioControllers {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getOneVoluntario(@PathVariable String id) {
-        Optional<Voluntario> optionalVoluntario = repository.findById(id);
+    @GetMapping("/{id_voluntario}")
+    public ResponseEntity getOficinaId(@PathVariable String id_voluntario) {
+        Optional<Voluntario> optionalVoluntario = repository.findById(id_voluntario);
 
         if (optionalVoluntario.isPresent()) {
             Voluntario voluntario = optionalVoluntario.get();

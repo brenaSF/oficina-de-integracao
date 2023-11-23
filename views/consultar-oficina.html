@@ -20,13 +20,6 @@
 
     <img src="../img/ellp_logo.png" class="logo" id="logo">
 
-    <form>
-
-        <button type="button" id="inserirbusca">Consultar</button>
-
-        <input type="text" id="searchInput" placeholder="Digite sua consulta">
-
-    </form>
 
     <div id="results"></div>
 
@@ -52,8 +45,20 @@
        
        
         </table>
+        
     </div>
-    
+
+    <br>
+    <form class="consultar-oficina">
+
+        <button type="button" class="botao-inserirbusca" onclick="consultarOficinaPorId()">Consultar</button>
+
+        <input type="text" id="searchInput" placeholder="Digite sua consulta">
+
+    </form>
+
+    <div id="oficinaDetails"></div>
+
     <script src="../js/oficina.js"></script>
     
 </body>

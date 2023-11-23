@@ -32,7 +32,7 @@ public class Voluntario {
 
     private Boolean active;
 
-    private String horas_voluntariadas;
+    private String id_departamento;
 
     public Voluntario(RequestVoluntario requestVoluntario){
         this.nome = requestVoluntario.nome();
@@ -42,7 +42,7 @@ public class Voluntario {
         this.curso = requestVoluntario.curso();
         this.periodo = requestVoluntario.periodo();
         this.active = true;
-        this.horas_voluntariadas=requestVoluntario.horas_voluntariadas();
+        this.id_departamento = requestVoluntario.id_departamento();
 
     }
 
@@ -71,12 +71,12 @@ public class Voluntario {
         this.periodo = periodo;
     }
 
-    public void setActive(boolean b) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public void setHorasVoluntariadas(String horas_voluntariadas) {
-        this.horas_voluntariadas = horas_voluntariadas;
+    public void setId_voluntario(String id_departamento) {
+        this.id_departamento = id_departamento;
     }
 
 }

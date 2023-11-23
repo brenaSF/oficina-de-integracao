@@ -54,7 +54,6 @@ function consultarTodosOficina() {
         console.error("Erro na solicitação:", error);
     });
 }
-
 function editarCelula(celula, valorAtual, id_oficina, campo) {
     console.log("Início da edição - Celula:", celula);
 
@@ -79,13 +78,8 @@ function editarCelula(celula, valorAtual, id_oficina, campo) {
     input.focus();
 }
 
-
-function salvarEdicao(celula, novoValor, id_oficina, campo) {
-    console.log("Celula:", celula);
-
-    celula.innerHTML = novoValor;
-
-    console.log("Antes da chamada fetch");
+function salvarEdicao(id_oficina, campo, novoValor) {
+    console.log("Salvando edição para id_oficina:", id_oficina);
 
     fetch(`http://localhost:8080/oficina/${id_oficina}`, {
         method: "PATCH",
@@ -98,7 +92,7 @@ function salvarEdicao(celula, novoValor, id_oficina, campo) {
         if (!response.ok) {
             throw new Error(`Erro ao salvar edição: ${response.status}`);
         }
-        return response.json(); 
+        return response.json();
     })
     .then(data => {
         console.log("Edição salva com sucesso:", data);
@@ -106,46 +100,6 @@ function salvarEdicao(celula, novoValor, id_oficina, campo) {
     .catch(error => {
         console.error("Erro ao salvar edição:", error);
     });
-}
-
-function salvarEdicao() {
-
-    const editedCells = document.querySelectorAll('.editavel');
-    
-    editedCells.forEach(editedCell => {
-        campo == "id_oficina";
-        const celula = editedCell;
-        const novoValor = editedCell.querySelector('input').value;
-        const id_oficina = campo;
-        const campo = ;
-
-        salvarEdicao(celula, novoValor, id_oficina, campo);
-    });
-}
-
-
-function editarCelula(celula, valorAtual, id_oficina, campo) {
-    console.log("Início da edição - Celula:", celula);
-
-    const input = document.createElement("input");
-    input.value = valorAtual;
-
-    celula.innerHTML = "";
-    celula.appendChild(input);
-
-    input.addEventListener("blur", function () {
-        console.log("Blur - Celula:", celula);
-        salvarEdicao(celula, input.value, id_oficina, campo);
-    });
-
-    input.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            console.log("Enter pressionado - Celula:", celula);
-            salvarEdicao(celula, input.value, id_oficina, campo);
-        }
-    });
-
-    input.focus();
 }
 
 

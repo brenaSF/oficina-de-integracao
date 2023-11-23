@@ -10,33 +10,33 @@
 
     <title>Relatorio Voluntario</title>
 
+    <link rel="stylesheet" href="../css/consultar.css">
+
+    <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
+
 </head>
 
 <body>
 
     
-    <div class="table-container">
-        
-        <table>
-            
-            <tr>
-                <th>ID</th>
+    <img src="../img/ellp_logo.png" class="logo" id="logo">
 
-                <th>Nome</th>
+ 
+    <br>
+    <form class="consultar">
 
-                <th>RA</th>
+        <button type="button" class="botao-inserirbusca" onclick="consultarOficinaPorId()">Consultar</button>
 
-                <th>Horas Voluntariadas</th>
-           
-            </tr>
-       
-       
-        </table>
-   
-    </div>
+        <input type="text" id="searchInput" placeholder="Digite sua consulta">
+
+    </form>
+
+    <div id="voluntarioDetails"></div>
+
+    <button class="imprimir" onclick="imprimirCertificado()">Imprimir Relatorio</button>
 
 
-    <script src="../js/relatorio.js"></script>
+    <script src="../js/voluntario.js"></script>
     
 </body>
 
