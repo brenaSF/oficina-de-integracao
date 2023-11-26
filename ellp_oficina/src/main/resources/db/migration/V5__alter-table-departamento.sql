@@ -1,0 +1,2 @@
+ALTER TABLE departamento
+ALTER COLUMN id_departamento SET DATA TYPE VARCHAR(45);

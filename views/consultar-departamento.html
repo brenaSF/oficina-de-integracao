@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consultar Departamento</title>
+
+    <link rel="stylesheet" href="../css/consultar.css">
+
+    <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+    <img src="../img/ellp_logo.png" class="logo" id="logo">
+
+
+    <div id="results"></div>
+
+    <div class="table-container">
+        
+        <table>
+            
+            <tr>
+                
+                <th>ID</th>
+                
+                <th>Nome</th>
+                
+                <th>Responsavel</th>
+
+
+            </tr>
+       
+       
+        </table>
+        
+    </div>
+
+    <br>
+    <form class="consultar">
+
+        <input type="text" id="searchInput" placeholder="Digite sua consulta">
+
+    </form>
+
+    <div class="button-container">
+    
+        <button type="button" class="botao-inserirbusca" onclick="consultarDepartamentoPorId()">Consultar</button>
+        
+        <button type="button" class="botao-inserirbusca" onclick="deletarDepartamentoPorId()">Deletar</button>
+        
+    </div>
+
+    <div id="departamentoDetails"></div>
+
+
+    <script src="../js/departamento.js"></script>
+    
+</body>
+
+</html>

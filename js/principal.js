@@ -24,3 +24,14 @@ function abrirPainelUsuario() {
         PainelUsuario.style.display = "none";
     }
 }
+
+
+
+function abrirPainelDepartamento() {
+    var PainelDepartamento = document.getElementById("PainelDepartamento");
+    if (PainelDepartamento.style.display === "none" || PainelDepartamento.style.display === "") {
+        PainelDepartamento.style.display = "block";
+    } else {
+        PainelDepartamento.style.display = "none";
+    }
+}

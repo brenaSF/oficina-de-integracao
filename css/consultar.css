@@ -128,7 +128,7 @@ th {
 
 }
 
-#oficinaDetails p, #voluntarioDetails p {
+#oficinaDetails p, #voluntarioDetails p , #departamentoDetails p {
    
     margin: 5px 0;
    
@@ -148,7 +148,7 @@ th {
 
 }
 
-#oficinaDetails, #voluntarioDetails{
+#oficinaDetails, #voluntarioDetails, #departamentoDetails{
 
     margin-top: 20px;
 
