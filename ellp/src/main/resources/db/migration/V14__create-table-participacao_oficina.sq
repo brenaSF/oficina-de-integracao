@@ -1,7 +1,0 @@
-CREATE TABLE participacao_oficina (
-    id_oficina TEXT NOT NULL,
-    id_voluntario TEXT NOT NULL,
-    PRIMARY KEY (id_oficina, id_voluntario),
-    FOREIGN KEY (id_oficina) REFERENCES oficina(id_oficina),
-    FOREIGN KEY (id_voluntario) REFERENCES voluntario(id_voluntario)
-);

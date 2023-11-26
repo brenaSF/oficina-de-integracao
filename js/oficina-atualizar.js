@@ -28,7 +28,7 @@ function consultarTodosOficina() {
         data.forEach(result => {
             const novaLinha = document.createElement("tr");
 
-            const atributosExibidos = ["id_oficina", "nome_oficina", "qt_participantes", "data", "horarioinicio", "active"];
+            const atributosExibidos = ["id_oficina", "nome_oficina", "qt_participantes", "data_oficina", "horarioinicio","horariofim", "active"];
 
             atributosExibidos.forEach(campo => {
                 const novoCampo = document.createElement("td");

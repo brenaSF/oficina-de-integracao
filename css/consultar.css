@@ -179,3 +179,21 @@ th {
 
 
 }
+
+
+.button-container {
+   
+    display: flex;
+   
+    justify-content: center;
+   
+    margin-top: 20px; 
+
+}
+
+.botao-inserirbusca {
+
+    margin: 0 10px; 
+    
+}
+

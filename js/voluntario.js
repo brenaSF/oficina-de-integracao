@@ -63,7 +63,7 @@ formulario.addEventListener("submit", function(event) {
 
 
 function consultarTodos() {
-    fetch("http://localhost:8080/voluntario", {
+    fetch("http://localhost:8080/voluntario/allVoluntarios", {
         method: "GET",
         headers: {
             "Accept": "application/json"
@@ -107,7 +107,7 @@ function consultarTodos() {
 
 consultarTodos();
 
-function consultarOficinaPorId() {
+function consultarVoluntarioPorId() {
     const id_voluntario = document.getElementById("searchInput").value;
 
     if (id_voluntario.trim() !== "") {
@@ -148,7 +148,6 @@ function updateDetailsInHTML(data) {
         <p>Telefone: ${data.telefone}</p>
         <p>Curso: ${data.curso}</p>
         <p>Período: ${data.periodo}</p>
-        <p>Ativo: ${data.active}</p>
     `;
 
 
@@ -158,3 +157,59 @@ function imprimirCertificado() {
 
     window.print();
 }
+
+
+
+
+function desativarVoluntarioPorId() {
+    const id_voluntario = document.getElementById("searchInput").value;
+
+    if (id_voluntario.trim() !== "") {
+        fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            console.log("Oficina deletada com sucesso!");
+            location.reload(); 
+            
+        })
+        .catch(error => {
+            console.error("Erro ao deletar oficina por id:", error);
+        });
+    } else {
+        console.error("ID da oficina não pode estar vazio.");
+    }
+}
+
+function deletarVoluntarioPorId() {
+    const id_voluntario = document.getElementById("searchInput").value;
+
+    if (id_voluntario.trim() !== "") {
+        fetch(`http://localhost:8080/voluntario/deletarOficina/${id_voluntario}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            console.log("Oficina deletada com sucesso!");
+            location.reload(); 
+            
+        })
+        .catch(error => {
+            console.error("Erro ao deletar oficina por id:", error);
+        });
+    } else {
+        console.error("ID da oficina não pode estar vazio.");
+    }
+}
+

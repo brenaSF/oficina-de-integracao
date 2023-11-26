@@ -23,7 +23,7 @@
 
     <img src="../img/ellp_logo.png" class="logo" id="logo">
 
-    <h2>Alterar Valores das Oficinas</h2>
+    <h2>Alterar Valores das Voluntário</h2>
 
 
     <table id="tabela-oficinas">
@@ -31,21 +31,25 @@
         <thead>
     
             <tr>
-    
-                <th>ID</th>
-    
-                <th class="editavel">Nome</th>
-    
-                <th>Quantidade de Participantes</th>
-    
-                <th>Data</th>
-    
-                <th>Horário de Início</th>
-    
-                <th>Horário de Fim</th>
+                <th class="id_voluntario">ID</th>
 
+                <th class="nome">Nome</th>
+
+                <th class="ra">RA</th>
+
+                <th class="email">Email</th>
+
+                <th class="telefone">Telefone</th>
+                
+                <th class="curso">Curso</th>
+
+                <th class="periodo">Período</th>
+                
                 <th>Ativo</th>
 
+                <th>Horas</th>
+
+           
             </tr>
     
         </thead>
@@ -57,11 +61,11 @@
 
     </table>
 
-    <button class="botao-salvar" onclick="salvarEdicao()">Salvar Edição</button>
+    <button class="botao-salvar-edicao" onclick="atualizarDadosVoluntario()">Salvar Edição</button>
 
-   
+    <div id="dadosAtualizados"></div>
 
-<script src="../js/oficina-atualizar.js"></script>
+<script src="../js/voluntario-atualizar.js"></script>
 
 </body>
 

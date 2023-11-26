@@ -3,47 +3,35 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
     const nome = document.getElementById("nome").value;
     const senha = document.getElementById("senha").value;
-    const loginMessage = document.getElementById("loginMessage");
 
-    if (validateCredentials(nome, senha)) {
-        loginMessage.textContent = "Login bem-sucedido!";
-        console.log("Login successful. User:", nome);
+    if (nome.trim() !== "") {
+        console.log(nome);
 
-        fetch("http://localhost:8080/login", {
+        fetch(`http://localhost:8080/login/byNomeAndSenha?nome=${nome}&senha=${senha}`, {
+            method: "GET",
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify({
-                nome: nome,
-                senha: senha,
-
-            })
+                "Accept": "application/json"
+            }
         })
         .then(response => {
-            if (response.ok) {
-                console.log("POST bem-sucedido");
-                window.location.href = 'principal.html';
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Assuming data is an object with "nome" and "senha" properties
+            if (data.nome && data.senha) {
+                window.location.href = "principal.html";
             } else {
-                console.error("Erro ao fazer o POST:", response.status);
+                console.warn("Nenhum login encontrado com esse nome e senha.");
             }
         })
         .catch(error => {
-            console.error("Erro ao fazer o POST:", error);
+            console.error("Erro ao consultar oficina por nome e senha:", error);
+            // Consider handling the error appropriately, e.g., displaying an error message.
         });
-
     } else {
-        loginMessage.textContent = "Credenciais inválidas. Tente novamente.";
-        console.log("Login failed. User:", nome);
+        console.error("Nome da oficina não pode estar vazio.");
     }
 });
-
-
-function validateCredentials(nome, senha) {
-    if (!nome || !senha) {
-        return false;
-    }
-
-    return true;
-}
