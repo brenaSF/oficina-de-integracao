@@ -1,7 +1,10 @@
 package com.ellp_oficina.ellp_oficina.domain.ellp;
 
+import java.sql.Date;
+import java.sql.Time;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.websocket.Decoder.Text;
 
 public record RequestOficina(
 
@@ -12,13 +15,12 @@ public record RequestOficina(
 
         Integer qt_participantes,
 
-        @NotBlank
-        String data_oficina,
+        Date data_oficina,
 
-        @NotBlank
-        String horarioinicio,
+        Time horarioinicio,
 
-        @NotBlank
-        String horariofim
+        Time horariofim,
+
+        String duracao
 )
 {}

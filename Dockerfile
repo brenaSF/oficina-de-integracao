@@ -11,6 +11,6 @@ FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
-COPY --from=build /ellp/target/ellp-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /ellp_oficina/target/ellp_oficina-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT [ "java", "-jar", "app.jar" ]

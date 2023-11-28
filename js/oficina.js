@@ -45,6 +45,8 @@ function registrar() {
     });
 }
 
+
+
 function limpar() {
     document.querySelector(".nome").value = "";
     document.querySelector(".qt_participantes").value = ""; 
@@ -61,7 +63,6 @@ formulario.addEventListener("submit", function(event) {
     registrar();
     limpar();
 });
-
 
 
 function consultarTodosOficina() {
@@ -87,25 +88,26 @@ function consultarTodosOficina() {
             const resultElement = document.createElement("p");
             resultsDiv.appendChild(resultElement);
             
+            // Selecione a tabela
             const table = document.querySelector(".table-container table");
             
             const novaLinha = document.createElement("tr");
             
-            const atributosExibidos = ["id_oficina", "nome_oficina", "qt_participantes","data_oficina", "horarioinicio","horariofim","active"]; 
-
-            atributosExibidos.forEach(campo => {
+            for (const campo in result) {
                 const novoCampo = document.createElement("td");
                 novoCampo.textContent = result[campo];
                 novaLinha.appendChild(novoCampo);
-            });
+            }
             
-            table.appendChild(novaLinha);
+            table.appendChild(novaLinha);            
+
         });
     })
     .catch(error => {
         console.error("Erro na solicitação:", error);
     });
 }
+
 
 
 consultarTodosOficina();

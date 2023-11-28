@@ -21,7 +21,6 @@ function consultarTodos() {
             const resultElement = document.createElement("p");
             resultsDiv.appendChild(resultElement);
             
-            // Selecione a tabela
             const table = document.querySelector(".table-container table");
             
             const novaLinha = document.createElement("tr");

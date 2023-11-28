@@ -1,9 +1,11 @@
 package com.ellp_oficina.ellp_oficina.domain.ellp;
+import org.hibernate.annotations.Type;
 
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.sql.Date;
+import java.sql.Time;
 
 @Table(name="oficina")
 @Entity(name = "oficina")
@@ -23,13 +25,15 @@ public class Oficina {
 
     private Integer qt_participantes;
 
-    private String data_oficina;
+    private Date data_oficina;
 
-    private String horarioinicio;
+    private Time horarioinicio;
+
+    private Time horariofim;
+
+    private String duracao;
 
     private Boolean active;
-
-    private String horariofim;
 
 
     public Oficina(RequestOficina requestOficina){
@@ -49,13 +53,13 @@ public class Oficina {
         this.qt_participantes = qt_participantes;
     }
 
-    public void setData(String data_oficina) {
+    public void setData(Date data_oficina) {
         this.data_oficina = data_oficina;
     }
 
-    public void setHorarioinicio(String horarioinicio){this.horarioinicio=horarioinicio;}
+    public void setHorarioinicio(Time horarioinicio){this.horarioinicio=horarioinicio;}
 
-    public void setHorariofim(String horariofim){this.horariofim=horariofim;}
+    public void setHorariofim(Time horariofim){this.horariofim=horariofim;}
 
 
 

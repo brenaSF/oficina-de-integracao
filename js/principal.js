@@ -25,8 +25,6 @@ function abrirPainelUsuario() {
     }
 }
 
-
-
 function abrirPainelDepartamento() {
     var PainelDepartamento = document.getElementById("PainelDepartamento");
     if (PainelDepartamento.style.display === "none" || PainelDepartamento.style.display === "") {
@@ -35,3 +33,4 @@ function abrirPainelDepartamento() {
         PainelDepartamento.style.display = "none";
     }
 }
+
