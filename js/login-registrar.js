@@ -26,6 +26,7 @@ function registrar() {
     })
     .then(function(res) {
         console.log(res);
+        alert("Usuário registrado com sucesso!");
     })
     .catch(function(error) {
         console.error(error);

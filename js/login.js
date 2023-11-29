@@ -20,16 +20,18 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
             return response.json();
         })
         .then(data => {
-            // Assuming data is an object with "nome" and "senha" properties
             if (data.nome && data.senha) {
                 window.location.href = "principal.html";
             } else {
                 console.warn("Nenhum login encontrado com esse nome e senha.");
+                alert("Nenhum login encontrado com esse nome e senha");
             }
         })
         .catch(error => {
             console.error("Erro ao consultar oficina por nome e senha:", error);
-            // Consider handling the error appropriately, e.g., displaying an error message.
+            alert("Nenhum login encontrado com esse nome e senha");
+
+
         });
     } else {
         console.error("Nome da oficina não pode estar vazio.");
