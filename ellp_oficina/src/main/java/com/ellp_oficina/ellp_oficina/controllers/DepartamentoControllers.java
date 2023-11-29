@@ -21,14 +21,16 @@ public class DepartamentoControllers {
     @Autowired
     private DepartamentoRepository departamentoRepository;
 
+    //Retornar todos os departamentos 
     @GetMapping("/AllDepartamamentos") 
     public ResponseEntity getAllDepartamamentos() {
         var AllDepartamamentos = departamentoRepository.findAll();
         return ResponseEntity.ok(AllDepartamamentos);
     }
 
+    //Retornar departamento por ID
     @GetMapping("/{id_departamento}")
-    public ResponseEntity getOficinaId(@PathVariable String id_departamento) {
+    public ResponseEntity getDepartamentoId(@PathVariable String id_departamento) {
         Optional<Departamento> optionalDepartamento = departamentoRepository.findById(id_departamento);
 
         if (optionalDepartamento.isPresent()) {
@@ -39,17 +41,19 @@ public class DepartamentoControllers {
         }
     }
 
+    //Registrar novo departamento
     @PostMapping
-    public ResponseEntity registerVoluntario(@RequestBody @Valid RequestDepartamento data ){
+    public ResponseEntity registerDepartamento(@RequestBody @Valid RequestDepartamento data ){
         Departamento newDepartamento = new Departamento(data);
         System.out.println(data);
         departamentoRepository.save(newDepartamento);
         return ResponseEntity.ok().build();
     }
 
+    //Atualizar departamento por ID
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity updateVoluntario(@RequestBody @Valid RequestDepartamento data){
+    public ResponseEntity updateDepartamento(@RequestBody @Valid RequestDepartamento data){
 
         Optional <Departamento> optionalDepartamento = departamentoRepository.findById(data.id_departamento());
         if(optionalDepartamento.isPresent()){
@@ -64,6 +68,7 @@ public class DepartamentoControllers {
 
     }
 
+    //Deletar departamento por ID
     @DeleteMapping("/deletarDepartamento/{id}")
     @Transactional
     public ResponseEntity deleteDepartamento(@PathVariable String id) {

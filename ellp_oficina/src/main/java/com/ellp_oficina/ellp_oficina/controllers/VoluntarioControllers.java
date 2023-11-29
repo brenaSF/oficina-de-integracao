@@ -49,18 +49,19 @@ public class VoluntarioControllers {
         }
     }
 
-    //Registra
+    //Registrar novo voluntário
     @PostMapping
-    public ResponseEntity registerVoluntario(@RequestBody @Valid RequestVoluntario data ){
+    public ResponseEntity registrarVoluntario(@RequestBody @Valid RequestVoluntario data ){
         Voluntario newVoluntario = new Voluntario(data);
         System.out.println(data);
         repository.save(newVoluntario);
         return ResponseEntity.ok().build();
     }
 
+    //Atualizar voluntário por ID
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity updateVoluntario(@RequestBody @Valid RequestVoluntario data){
+    public ResponseEntity atualizarVoluntario(@RequestBody @Valid RequestVoluntario data){
 
         Optional <Voluntario> optionalVoluntario = repository.findById(data.id_voluntario());
         if(optionalVoluntario.isPresent()){
@@ -77,10 +78,10 @@ public class VoluntarioControllers {
 
     }
 
-
+    //Atualizar horas voluntário por ID
     @PutMapping("/horas_voluntariadas/{id_voluntario}")
     @Transactional
-    public ResponseEntity updateHorasVoluntariadas(@RequestBody @Valid RequestVoluntario data) {
+    public ResponseEntity atualizarHorasVoluntariadas(@RequestBody @Valid RequestVoluntario data) {
         Optional<Voluntario> optionalVoluntario = repository.findById(data.id_voluntario());
     
         if (optionalVoluntario.isPresent()) {
@@ -93,8 +94,7 @@ public class VoluntarioControllers {
         }
     }
     
-
-
+    //Desativar voluntário por ID
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity desativarVoluntario(@PathVariable String id){
@@ -108,9 +108,10 @@ public class VoluntarioControllers {
         }
     }
 
+    //Deletar voluntário por ID
     @DeleteMapping("/deletarVoluntario/{id}")
     @Transactional
-    public ResponseEntity deleteOficina(@PathVariable String id) {
+    public ResponseEntity deletarVoluntario(@PathVariable String id) {
         Optional<Voluntario> optionalVoluntario = repository.findById(id);
         if (optionalVoluntario.isPresent()) {
             Voluntario voluntario = optionalVoluntario.get();

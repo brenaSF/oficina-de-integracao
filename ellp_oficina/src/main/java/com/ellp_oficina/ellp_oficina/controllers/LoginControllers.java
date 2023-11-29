@@ -22,29 +22,18 @@ public class LoginControllers {
     @Autowired
     private LoginRepository repository;
 
+    //Retornar todos os usuários
     @GetMapping
-    public ResponseEntity getAllVoluntarios()
+    public ResponseEntity getAllLogins()
     {
         var AllUsuarios= repository.findAllByActiveTrue();
 
         return ResponseEntity.ok(AllUsuarios);
     }
 
-
-    @GetMapping("/byName")
-    public ResponseEntity getLoginByName(@RequestParam String nome) {
-        Optional<Login> optionalUsuario = repository.findByNome(nome);
-
-        if (optionalUsuario.isPresent()) {
-            Login usuario = optionalUsuario.get();
-            return ResponseEntity.ok(usuario);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
+    //Retornar login por senha e nome
     @GetMapping("/byNomeAndSenha")
-    public ResponseEntity<Map<String, String>> getVoluntarioByNomeAndSenha(
+    public ResponseEntity<Map<String, String>> getLoginByNomeAndSenha(
             @RequestParam String nome,
             @RequestParam String senha) {
         Optional<Login> optionalUsuario = repository.findByNomeAndSenha(nome, senha);
@@ -63,7 +52,7 @@ public class LoginControllers {
     }
 
 
-
+    //Regustrar novo login
     @PostMapping
     public ResponseEntity registerLogin(@RequestBody @Valid RequestLogin data ){
         Login newUsuario = new Login(data);
@@ -72,6 +61,7 @@ public class LoginControllers {
         return ResponseEntity.ok().build();
     }
 
+    //Deletar dados do login
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deleteLogin(@PathVariable String id){
@@ -85,7 +75,7 @@ public class LoginControllers {
         }
     }
 
-
+    //Atualizar dados do login
     @PutMapping
     @Transactional
     public ResponseEntity updateLogin(@RequestBody @Valid RequestLogin data){
@@ -102,6 +92,7 @@ public class LoginControllers {
 
     }
 
+    //Retornar login por ID 
     @GetMapping("/{id_login}")
     public ResponseEntity getLoginId(@PathVariable String id_login) {
         Optional<Login> optionalLogin = repository.findById(id_login);
