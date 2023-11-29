@@ -7,22 +7,18 @@ public record RequestVoluntario(
 
         String id_voluntario,
 
-        @NotBlank
         String nome,
 
-        @NotBlank
         String ra,
 
-        @NotBlank
         String email,
 
-        @NotBlank
         String telefone,
 
-        @NotBlank
         String curso,
 
-        @NotBlank
-        String periodo
+        String periodo,
+
+        String horas_voluntariadas
 ) {
 }

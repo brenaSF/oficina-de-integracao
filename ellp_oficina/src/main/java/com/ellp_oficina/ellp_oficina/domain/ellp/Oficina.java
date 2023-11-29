@@ -25,13 +25,11 @@ public class Oficina {
 
     private Integer qt_participantes;
 
-    private Date data_oficina;
+    private String data_oficina;
 
-    private Time horarioinicio;
+    private String horarioinicio;
 
-    private Time horariofim;
-
-    private String duracao;
+    private String horariofim;
 
     private Boolean active;
 
@@ -53,15 +51,13 @@ public class Oficina {
         this.qt_participantes = qt_participantes;
     }
 
-    public void setData(Date data_oficina) {
+    public void setData(String data_oficina) {
         this.data_oficina = data_oficina;
     }
 
-    public void setHorarioinicio(Time horarioinicio){this.horarioinicio=horarioinicio;}
+    public void setHorarioinicio(String horarioinicio){this.horarioinicio=horarioinicio;}
 
-    public void setHorariofim(Time horariofim){this.horariofim=horariofim;}
-
-
+    public void setHorariofim(String horariofim){this.horariofim=horariofim;}
 
 
 }

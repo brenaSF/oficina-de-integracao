@@ -5,6 +5,16 @@ logoElement.addEventListener("click", function () {
     window.location.href = "principal.html"; 
 });
 
+function openModal() {
+    document.getElementById("customModal").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("customModal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+
 
 const formulario = document.querySelector("form");
 
@@ -29,18 +39,50 @@ function registrar() {
             email: email,
             telefone: telefone,
             curso: curso,
-            periodo: periodo,
-            departamento : departamento
+            periodo: periodo
     
         })
     })
     .then(function(res) {
         console.log(res);
+        openModal();
     })
     .catch(function(error) {
         console.error(error);
     });
 }
+
+
+const formulario2 = document.querySelector("form");
+
+function registrar_horas_voluntariadas() {
+    const horas_voluntariadas = document.querySelector(".horas_voluntariadas").value;
+    const id_voluntario = document.getElementById("searchInput").value;
+
+    fetch(`http://localhost:8080/voluntario/horas_voluntariadas/${id_voluntario}`, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json" 
+        },
+        method: "PUT",
+        body: JSON.stringify({
+
+            id_voluntario : id_voluntario,
+            horas_voluntariadas: horas_voluntariadas
+    
+        })
+    })
+    .then(function(res) {
+        console.log(res);
+        openModal();
+        limpar();
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+
+}
+
 
 
 function limpar() {
@@ -148,6 +190,8 @@ function updateDetailsInHTML(data) {
         <p>Telefone: ${data.telefone}</p>
         <p>Curso: ${data.curso}</p>
         <p>Período: ${data.periodo}</p>
+        <p>Horas Voluntariadas: ${data.horas_voluntariadas}</p>
+
     `;
 
 
@@ -211,5 +255,50 @@ function deletarVoluntarioPorId() {
     } else {
         console.error("ID da oficina não pode estar vazio.");
     }
+}
+
+
+
+
+function atualizarVoluntarios() {
+    const nome = document.querySelector(".nome").value;
+    const email = document.querySelector(".email").value;
+    const telefone = document.querySelector(".telefone").value;
+    const curso = document.querySelector(".curso").value;
+    const periodo = document.querySelector(".periodo").value;
+    const id_voluntario = document.getElementById("searchInput").value;
+
+    fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json" 
+        },
+        method: "PUT",
+        body: JSON.stringify({
+
+            id_voluntario : id_voluntario,
+            nome: nome,
+            email: email,
+            telefone: telefone,
+            curso: curso,
+            periodo: periodo
+    
+        })
+    })
+    .then(function(res) {
+        console.log(res);
+        openModal();
+
+        document.querySelector(".nome").value = "";
+        document.querySelector(".email").value = "";
+        document.querySelector(".telefone").value = "";
+        document.querySelector(".curso").value = "";
+        document.querySelector(".periodo").value = "";
+        document.getElementById("searchInput").value = "";
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+
 }
 

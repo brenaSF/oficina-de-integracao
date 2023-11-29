@@ -1,71 +1,125 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-   
     <meta charset="UTF-8">
-   
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <title>Edição de Valores</title>
+    <title>Regitrar Oficina</title>
 
-    <link rel="stylesheet" href="../css/consultar.css">
-    
     <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
 
-
+    <link rel="stylesheet" href="../css/registrar.css">
 </head>
 
 <body>
+    <div class="container">
 
-    <img src="../img/ellp_logo.png" class="logo" id="logo">
-
-    <h2>Alterar Valores das Voluntário</h2>
+        <img src="../img/ellp_logo.png" class="logo" id="logo">
 
 
-    <table id="tabela-oficinas">
+        <form id="form-atualizar-voluntario">
+
+            <h2>Atualizar Dados Voluntários</h2>
+
+            <label for="consulta_idVoluntario" ><b>Consultar Voluntario por ID: </b></label>
+
+            <input type="text" id="searchInput" class="usuario" placeholder="Digite sua consulta">
+            
+            <button type="button" class="botao-inserirbusca" onclick="consultarVoluntarioPorId()">Consultar</button>
+
+            <label for="horas_voluntariadas" ><b>Nome: </b></label>
+
+            <input type="text" name="nome" id="nome" class="usuario nome"><br>
+
+            <label for="email"><b>Email: </b></label>
+            
+            <input type="text" name="email" id="email"  class="usuario email"><br>
+
+            <label for="telefone"><b>Telefone: </b></label>
+            
+            <input type="text" name="telefone" id="telefone" class="usuario telefone"><br>
+
+            <label for="curso"><b>Curso</b></label>
+
+            <select id="curso" name="curso" name="curso" class="curso">
+
+                <option value="Eng. Software">Eng. Software</option>
+
+                <option value="Eng. Computação">Eng. Computação</option>
+
+                <option value="Eng. Controle Automação">Eng. Controle Automação</option>
+
+                <option value="Eng. Elétrica">Eng. Elétrica</option>
+
+                <option value="Eng. Eletrônica">Eng. Eletrônica</option>
+
+                <option value="Eng. Mecânica">Eng. Mecânica</option>
+
+            </select><br>
+
+            <label for="periodo"><b>Periodo</b></label>
+
+            <select id="periodo" name="periodo" class="periodo">
+
+                <option value="1">1</option>
+
+                <option value="2"> 2</option>
+
+                <option value="3"> 3</option>
+
+                <option value="4">4</option>
+
+                <option value="5">5</option>
+
+                <option value="6"> 6</option>
+
+                <option value="7">7</option>
+
+                <option value="8">8</option>
+
+                <option value="9"> 9</option>
+
+                <option value="10">10</option>
+
+            </select><br>
+
+
+            <label for="departamento"><b>Departamento</b></label> 
+            
+            <select id="v" name="departamento" name="departamento" class="departamento">
+
+                <option value="1"> 1 - Gestão de Pessoas</option>
+
+                <option value="2">2 - Conteúdo</option>
+
+                <option value="3">3 - Marketing</option>
+
+                <option value="4">4 - Instrutores</option>
+
+            </select><br>
+
+            <button class="botao-entrar" onclick="atualizarVoluntarios()">Atualizar</button>
+
+        </form>
+
+
+    </div>
+
+
     
-        <thead>
+    <div id="voluntarioDetails"></div>
+
+
+    <div class="modal" id="customModal">
+        
+        <p>Registrado com sucesso!</p>
+        
+        <button onclick="closeModal()">Close</button>
+   
+    </div>
     
-            <tr>
-                <th class="id_voluntario">ID</th>
+    <div class="overlay" id="overlay"></div>
 
-                <th class="nome">Nome</th>
-
-                <th class="ra">RA</th>
-
-                <th class="email">Email</th>
-
-                <th class="telefone">Telefone</th>
-                
-                <th class="curso">Curso</th>
-
-                <th class="periodo">Período</th>
-                
-                <th>Ativo</th>
-
-                <th>Horas</th>
-
-           
-            </tr>
-    
-        </thead>
-    
-        <tbody id="tabela-corpo">
-    
-        </tbody>
-
-
-    </table>
-
-    <button class="botao-salvar-edicao" onclick="atualizarDadosVoluntario()">Salvar Edição</button>
-
-    <div id="dadosAtualizados"></div>
-
-<script src="../js/voluntario-atualizar.js"></script>
+    <script src="../js/voluntario.js"></script>
 
 </body>
 

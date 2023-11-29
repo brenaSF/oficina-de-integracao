@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Regitrar Oficina</title>
 
     <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
 
@@ -40,20 +40,22 @@
             
             <input type="time" name="horariofim" id="horariofim" class="usuario horariofim"><br>
 
-            <label for="Voluntário"><b>Voluntário: </b></label>
-
-            <input type="text" name="Voluntário" class="usuario voluntario"><br>
-
-            <div class="result"></div>
-    
-            <button class="botao-addVoluntario" onclick="adicionarCampo()">Adicionar Voluntários Participantes</button>
-
             <button class="botao-entrar" type="submit">Registrar</button>
 
         </form>
 
 
     </div>
+
+    <div class="modal" id="customModal">
+        
+        <p>Registrado com sucesso!</p>
+        
+        <button onclick="closeModal()">Close</button>
+   
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
 
     <script src="../js/oficina.js"></script>
 

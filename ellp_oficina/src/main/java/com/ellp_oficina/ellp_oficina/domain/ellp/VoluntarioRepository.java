@@ -14,5 +14,6 @@ public interface VoluntarioRepository extends JpaRepository <Voluntario, String>
 
     Optional<Voluntario> findByNome(String nome);
 
+    Optional<Voluntario> findById(String id_voluntario);
 }
 

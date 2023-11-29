@@ -1,67 +1,72 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-   
     <meta charset="UTF-8">
-   
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <title>Edição de Valores</title>
+    <title>Regitrar Oficina</title>
 
-    <link rel="stylesheet" href="../css/consultar.css">
-    
     <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
 
-
+    <link rel="stylesheet" href="../css/registrar.css">
 </head>
 
 <body>
+    <div class="container">
 
-    <img src="../img/ellp_logo.png" class="logo" id="logo">
-
-    <h2>Alterar Valores das Oficinas</h2>
-
-
-    <table id="tabela-oficinas">
-    
-        <thead>
-    
-            <tr>
-    
-                <th>ID</th>
-    
-                <th class="editavel">Nome</th>
-    
-                <th>Quantidade de Participantes</th>
-    
-                <th>Data</th>
-    
-                <th>Horário de Início</th>
-    
-                <th>Horário de Fim</th>
-
-                <th>Ativo</th>
-
-            </tr>
-    
-        </thead>
-    
-        <tbody id="tabela-corpo">
-    
-        </tbody>
+        <img src="../img/ellp_logo.png" class="logo" id="logo">
 
 
-    </table>
+        <form id="form-atualizar-voluntario">
 
-    <button class="botao-salvar" onclick="salvarEdicao()">Salvar Edição</button>
+            <h2>Atualizar Dados Oficina</h2>
 
+            <label for="consulta_idOficina" ><b>Consultar Oficina por ID: </b></label>
+
+            <input type="text" id="searchInput" class="usuario" placeholder="Digite sua consulta">
+            
+            <button type="button" class="botao-inserirbusca" onclick="consultarOficinaPorId()">Consultar</button>
+
+            <label for="nome" ><b>Nome: </b></label>
+
+            <input type="text" name="nome" id="nome" class="usuario nome"><br>
+
+            <label for="qt_participantes"><b>Quantidade de participantes:</b></label>
+
+            <input type="text" name="qt_participantes" id="qt_participantes" class="usuario qt_participantes"><br>
+
+            <label for="data_oficina"><b>Data: </b></label>
+            
+            <input type="date" name="data_oficina" id="data_oficina"  class="usuario data_oficina"><br>
+
+            <label for="horarioinicio"><b>Horario de início: </b></label>
+            
+            <input type="time" name="horarioinicio" id="horarioinicio" class="usuario horarioinicio"><br>
+
+            <label for="horariofim"><b>Horario de fim: </b></label>
+            
+            <input type="time" name="horariofim" id="horariofim" class="usuario horariofim"><br>
+
+            <button class="botao-entrar" onclick="atualizarOficinas()">Atualizar</button>
+
+        </form>
+
+
+    </div>
+    
+    <div id="oficinaDetails"></div>
+
+
+    <div class="modal" id="customModal">
+        
+        <p>Registrado com sucesso!</p>
+        
+        <button onclick="closeModal()">Close</button>
    
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
 
-<script src="../js/oficina-atualizar.js"></script>
+    <script src="../js/oficina.js"></script>
 
 </body>
 

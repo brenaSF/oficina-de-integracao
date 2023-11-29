@@ -150,11 +150,15 @@ th {
 
 #oficinaDetails, #voluntarioDetails, #departamentoDetails{
 
-    margin-top: 20px;
+    text-align: center;
 
-    border: 1px solid #ccc;
-    
-    padding-left: -10px;
+    background-color: white;
+
+    margin: 0 400px;
+
+    border-radius: 20px;
+
+    margin-top: 20px;
 
 }
 

@@ -6,9 +6,11 @@ public record RequestDepartamento(
 
         String id_departamento,
 
-        @NotBlank String nome,
+        @NotBlank 
+        String nome,
 
-        @NotBlank String responsavel
+        @NotBlank 
+        String responsavel
 )
 {
 }

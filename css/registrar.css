@@ -47,6 +47,23 @@ form{
 
 }
 
+#form-registrar-login{
+
+    height: 60vh;
+
+}
+
+#form-participacao{
+
+    height: 70vh;
+
+}
+
+.consultar{
+
+
+}
+
 
 #form-departamento{
 
@@ -104,7 +121,7 @@ select{
 
 }
 
-.botao-entrar, .botao-addVoluntario{
+.botao-entrar, .botao-addVoluntario, .botao-inserirbusca{
 
     border-radius: 20px;
 
@@ -177,3 +194,62 @@ select{
     box-sizing: border-box;
 }
 
+.modal {
+   
+    display: none;
+   
+    position: fixed;
+   
+    top: 50%;
+   
+    left: 50%;
+   
+    transform: translate(-50%, -50%);
+   
+    padding: 20px;
+   
+    background-color: #fff;
+   
+    border: 1px solid #ccc;
+   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+    
+    display: none;
+    
+    position:relative;
+    
+    top: 0;
+    
+    left: 0;
+    
+    width: 100%;
+    
+    height: 100%;
+    
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#voluntarioDetails ,#oficinaDetails, #departamentoDetails{
+
+    text-align: center;
+
+    background-color: white;
+
+    margin: 0 400px;
+
+    border-radius: 20px;
+
+}
+
+#form-atualizar-voluntario{
+
+    height: 135vh;
+}
+
+#form-atualizar-departamento{
+
+    height: 70vh;
+}

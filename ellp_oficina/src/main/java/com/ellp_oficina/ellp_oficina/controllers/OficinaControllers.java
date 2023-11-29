@@ -56,7 +56,7 @@ public class OficinaControllers {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity updateOficina(@RequestBody @Valid RequestOficina data){
 
@@ -68,7 +68,6 @@ public class OficinaControllers {
             oficina.setData(data.data_oficina());
             oficina.setHorarioinicio(data.horarioinicio());
             oficina.setHorariofim(data.horariofim());
-
             return ResponseEntity.ok(oficina);
         }else{
             return ResponseEntity.notFound().build();

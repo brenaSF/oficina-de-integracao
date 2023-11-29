@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regitrar Oficina</title>
+
+    <link rel="shortcut icon" href="../img/ellp_logo.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="../css/registrar.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <img src="../img/ellp_logo.png" class="logo" id="logo">
+
+
+        <form id="form-participacao">
+
+            <h2>Registrar Horas Voluntariadas</h2>
+
+            <label for="horas_voluntariadas" ><b>Horas Voluntariadas: </b></label>
+
+            <input type="number" name="horas_voluntariadas" id="horas_voluntariadas" class="usuario horas_voluntariadas"><br>
+
+            <label for="consulta_idVoluntario" ><b>Consultar Voluntario por ID: </b></label>
+
+            <input type="text" id="searchInput" class="usuario" placeholder="Digite sua consulta">
+            
+            <button type="button" class="botao-inserirbusca" onclick="consultarVoluntarioPorId()">Consultar</button>
+ 
+        
+            <button class="botao-entrar" onclick="registrar_horas_voluntariadas()">Registrar</button>
+
+           
+
+        </form>
+
+
+    </div>
+
+
+    
+    <div id="voluntarioDetails"></div>
+
+
+    <div class="modal" id="customModal">
+        
+        <p>Registrado com sucesso!</p>
+        
+        <button onclick="closeModal()">Close</button>
+   
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <script src="../js/voluntario.js"></script>
+
+</body>
+
+</html>

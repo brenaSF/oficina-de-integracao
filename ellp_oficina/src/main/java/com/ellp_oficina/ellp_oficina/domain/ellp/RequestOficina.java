@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.Time;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.websocket.Decoder.Text;
 
 public record RequestOficina(
 
@@ -15,12 +14,10 @@ public record RequestOficina(
 
         Integer qt_participantes,
 
-        Date data_oficina,
+        String data_oficina,
 
-        Time horarioinicio,
+        String horarioinicio,
 
-        Time horariofim,
-
-        String duracao
+        String horariofim
 )
 {}

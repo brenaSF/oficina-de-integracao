@@ -1,0 +1,76 @@
+CREATE TABLE oficina (
+    id_oficina SERIAL PRIMARY KEY ,
+    nome_oficina TEXT NOT NULL,
+    qt_participantes INT NOT NULL,
+    data_oficina TEXT NOT NULL,
+    horarioInicio TEXT NOT NULL,
+    horarioFim TEXT NOT NULL,
+	duracao TEXT,
+    active BOOLEAN
+);
+
+
+CREATE TABLE voluntario (
+    id_voluntario SERIAL PRIMARY KEY,
+    nome TEXT UNIQUE NOT NULL,
+    ra TEXT NOT NULL,
+    email TEXT NOT NULL,
+    telefone TEXT NOT NULL,
+    curso TEXT NOT NULL,
+    periodo TEXT NOT NULL,
+    horas_voluntariadas TEXT,
+    active BOOLEAN
+);
+
+CREATE TABLE login(
+
+    id_login SERIAL PRIMARY KEY ,
+    nome TEXT UNIQUE NOT NULL,
+    senha TEXT NOT NULL,
+    active BOOLEAN
+
+);
+
+CREATE TABLE departamento (
+    
+    id_departamento SERIAL PRIMARY KEY,
+    nome  TEXT NOT NULL,
+    responsavel TEXT
+);
+
+
+UPDATE voluntario SET active = true;
+UPDATE oficina SET active = true;
+UPDATE login SET active = true;
+
+ALTER TABLE oficina
+ALTER COLUMN id_oficina SET DATA TYPE TEXT;
+
+ALTER TABLE voluntario
+ALTER COLUMN id_voluntario SET DATA TYPE TEXT;
+
+ALTER TABLE login
+ALTER COLUMN id_login SET DATA TYPE TEXT;
+
+ALTER TABLE departamento
+ALTER COLUMN id_departamento SET DATA TYPE TEXT;
+
+
+ALTER TABLE oficina
+ALTER COLUMN data_oficina TYPE DATE
+USING data_oficina::date;
+
+ALTER TABLE oficina
+ALTER COLUMN horarioInicio TYPE TIME
+USING horarioInicio::time;
+
+ALTER TABLE oficina
+ALTER COLUMN horarioFim TYPE TIME
+USING horarioFim::time;
+
+
+UPDATE oficina
+SET duracao = horarioFim - horarioInicio;
+
+ALTER TABLE oficina
+ADD COLUMN id_voluntarios TEXT;

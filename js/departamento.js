@@ -167,3 +167,36 @@ function deletarDepartamentoPorId() {
     }
 }
 
+function atualizarDepartamentos() {
+    const nome = document.querySelector(".nome").value;
+    const responsavel = document.querySelector(".responsavel").value;
+    const id_departamento = document.getElementById("searchInput").value;
+
+
+    fetch(`http://localhost:8080/departamento/${id_departamento}`, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json" 
+        },
+        method: "PUT",
+        body: JSON.stringify({
+           
+            id_departamento : id_departamento,
+            nome: nome,
+            responsavel: responsavel
+    
+        })
+    })
+    .then(function(res) {
+        console.log(res);
+        openModal();
+
+        document.querySelector(".nome").value = "";
+        document.querySelector(".responsavel").value = ""; 
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+
+}
+

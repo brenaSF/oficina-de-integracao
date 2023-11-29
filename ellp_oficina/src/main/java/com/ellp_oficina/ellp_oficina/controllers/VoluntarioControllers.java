@@ -22,30 +22,21 @@ public class VoluntarioControllers {
     @Autowired
     private VoluntarioRepository repository;
 
+    //Retornar todos os voluntários cadastrados
     @GetMapping("/allVoluntarios") 
     public ResponseEntity getAllVoluntarios() {
         var allVoluntarios = repository.findAll();
         return ResponseEntity.ok(allVoluntarios);
     }
 
+    //Retornar todos os voluntários cadastrados e que estão ativos
     @GetMapping("/allVoluntariosActive") 
     public ResponseEntity getAllActiveVoluntarios() {
         var allVoluntarios = repository.findAllByActiveTrue();
         return ResponseEntity.ok(allVoluntarios);
     }
 
-    @GetMapping("/byName")
-    public ResponseEntity getVoluntarioByName(@RequestParam String nome) {
-        Optional<Voluntario> optionalVoluntario = repository.findByNome(nome);
-
-        if (optionalVoluntario.isPresent()) {
-            Voluntario voluntario = optionalVoluntario.get();
-            return ResponseEntity.ok(voluntario);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
+    //Retornar todos os voluntários por id_voluntario
     @GetMapping("/{id_voluntario}")
     public ResponseEntity getOficinaId(@PathVariable String id_voluntario) {
         Optional<Voluntario> optionalVoluntario = repository.findById(id_voluntario);
@@ -58,6 +49,7 @@ public class VoluntarioControllers {
         }
     }
 
+    //Registra
     @PostMapping
     public ResponseEntity registerVoluntario(@RequestBody @Valid RequestVoluntario data ){
         Voluntario newVoluntario = new Voluntario(data);
@@ -74,7 +66,6 @@ public class VoluntarioControllers {
         if(optionalVoluntario.isPresent()){
             Voluntario voluntario = optionalVoluntario.get();
             voluntario.setNome(data.nome());
-            voluntario.setRa(data.ra());
             voluntario.setEmail(data.email());
             voluntario.setTelefone(data.telefone());
             voluntario.setCurso(data.curso());
@@ -85,6 +76,24 @@ public class VoluntarioControllers {
         }
 
     }
+
+
+    @PutMapping("/horas_voluntariadas/{id_voluntario}")
+    @Transactional
+    public ResponseEntity updateHorasVoluntariadas(@RequestBody @Valid RequestVoluntario data) {
+        Optional<Voluntario> optionalVoluntario = repository.findById(data.id_voluntario());
+    
+        if (optionalVoluntario.isPresent()) {
+            Voluntario voluntario = optionalVoluntario.get();
+            voluntario.setHorasVoluntariadas(data.horas_voluntariadas());
+            repository.save(voluntario); 
+            return ResponseEntity.ok(voluntario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+
 
     @DeleteMapping("/{id}")
     @Transactional
