@@ -55,32 +55,56 @@ function registrar() {
 
 const formulario2 = document.querySelector("form");
 
-function registrar_horas_voluntariadas() {
-    const horas_voluntariadas = document.querySelector(".horas_voluntariadas").value;
-    const id_voluntario = document.getElementById("searchInput").value;
-
-    fetch(`http://localhost:8080/voluntario/horas_voluntariadas/${id_voluntario}`, {
+function obterHorasExistentes(id_voluntario) {
+    return fetch(`http://localhost:8080/voluntario/obterHoras/${id_voluntario}`, {
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json" 
+            "Content-Type": "application/json"
         },
-        method: "PUT",
-        body: JSON.stringify({
-
-            id_voluntario : id_voluntario,
-            horas_voluntariadas: horas_voluntariadas
-    
-        })
+        method: "GET"
     })
-    .then(function(res) {
-        console.log(res);
+    .then(function (res) {
+        return res.json();
+    })
+    .then(function (data) {
+        return data.horas_voluntariadas;
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+}
+
+function registrar_horas_voluntariadas() {
+    const horas_voluntariadas = parseFloat(document.querySelector(".horas_voluntariadas").value);
+    const id_voluntario = document.getElementById("searchInput").value;
+
+    obterHorasExistentes(id_voluntario)
+    .then(function (horas_existentes) {
+        const novas_horas_totais = horas_existentes + horas_voluntariadas;
+
+        return fetch(`http://localhost:8080/voluntario/horas_voluntariadas/${id_voluntario}`, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            method: "PUT",
+            body: JSON.stringify({
+                id_voluntario: id_voluntario,
+                horas_voluntariadas: novas_horas_totais
+            })
+        });
+    })
+    .then(function (res) {
+        return res.json();
+    })
+    .then(function (data) {
+        console.log(data);
         openModal();
         limpar();
     })
-    .catch(function(error) {
+    .catch(function (error) {
         console.error(error);
     });
-
 }
 
 

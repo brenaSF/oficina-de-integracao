@@ -58,36 +58,6 @@ function registrar() {
 
 
 
-function registrar() {
-    const id_voluntario= document.querySelector(".id_voluntario").value;
-
-    fetch("http://localhost:8080/participacao", {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json" 
-        },
-        method: "POST",
-        body: JSON.stringify({
-            id_voluntario : id_voluntario
-        })
-    })
-    .then(function(res) {
-        if (!res.ok) {
-            throw new Error(`HTTP error! Status: ${res.status}`);
-        }
-        return res.json();
-    })
-    .then(function(data) {
-        console.log(data);
-        openModal();
-    })
-    .catch(function(error) {
-        console.error('Error:', error);
-    });
-}
-
-
-
 function limpar() {
     document.querySelector(".nome").value = "";
     document.querySelector(".qt_participantes").value = ""; 

@@ -13,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
+
+import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
@@ -38,7 +42,7 @@ public class VoluntarioControllers {
 
     //Retornar todos os voluntários por id_voluntario
     @GetMapping("/{id_voluntario}")
-    public ResponseEntity getOficinaId(@PathVariable String id_voluntario) {
+    public ResponseEntity getVoluntarioId(@PathVariable String id_voluntario) {
         Optional<Voluntario> optionalVoluntario = repository.findById(id_voluntario);
 
         if (optionalVoluntario.isPresent()) {
