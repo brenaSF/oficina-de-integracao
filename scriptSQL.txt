@@ -55,20 +55,6 @@ ALTER COLUMN id_login SET DATA TYPE TEXT;
 ALTER TABLE departamento
 ALTER COLUMN id_departamento SET DATA TYPE TEXT;
 
-
-ALTER TABLE oficina
-ALTER COLUMN data_oficina TYPE DATE
-USING data_oficina::date;
-
-ALTER TABLE oficina
-ALTER COLUMN horarioInicio TYPE TIME
-USING horarioInicio::time;
-
-ALTER TABLE oficina
-ALTER COLUMN horarioFim TYPE TIME
-USING horarioFim::time;
-
-
 UPDATE oficina
 SET duracao = horarioFim - horarioInicio;
 
