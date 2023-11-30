@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.Map;
-
-import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
@@ -43,7 +40,7 @@ public class DepartamentoControllers {
 
     //Registrar novo departamento
     @PostMapping
-    public ResponseEntity registerDepartamento(@RequestBody @Valid RequestDepartamento data ){
+    public ResponseEntity registrarDepartamento(@RequestBody @Valid RequestDepartamento data ){
         Departamento newDepartamento = new Departamento(data);
         System.out.println(data);
         departamentoRepository.save(newDepartamento);
@@ -53,7 +50,7 @@ public class DepartamentoControllers {
     //Atualizar departamento por ID
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity updateDepartamento(@RequestBody @Valid RequestDepartamento data){
+    public ResponseEntity atualizarDepartamento(@RequestBody @Valid RequestDepartamento data){
 
         Optional <Departamento> optionalDepartamento = departamentoRepository.findById(data.id_departamento());
         if(optionalDepartamento.isPresent()){
@@ -71,7 +68,7 @@ public class DepartamentoControllers {
     //Deletar departamento por ID
     @DeleteMapping("/deletarDepartamento/{id}")
     @Transactional
-    public ResponseEntity deleteDepartamento(@PathVariable String id) {
+    public ResponseEntity deletarDepartamento(@PathVariable String id) {
         Optional<Departamento> optionalDepartamento = departamentoRepository.findById(id);
         if (optionalDepartamento.isPresent()) {
             Departamento departamento = optionalDepartamento.get();

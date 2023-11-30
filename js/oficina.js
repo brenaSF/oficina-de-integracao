@@ -241,44 +241,4 @@ function deletarOficinaPorId() {
 }
 
 
-function atualizarOficinas() {
-    const nome = document.querySelector(".nome").value;
-    const qt_participantes = document.querySelector(".qt_participantes").value;
-    const data_oficina = document.querySelector(".data_oficina").value;
-    const horarioinicio = document.querySelector(".horarioinicio").value;
-    const horariofim = document.querySelector(".horariofim").value;
-    const id_oficina = document.getElementById("searchInput").value;
-
-    fetch(`http://localhost:8080/oficina/${id_oficina}`, {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json" 
-        },
-        method: "PUT",
-        body: JSON.stringify({
-
-            id_oficina : id_oficina,
-            nome_oficina: nome,
-            qt_participantes: qt_participantes,
-            data_oficina: data_oficina,
-            horarioinicio: horarioinicio,
-            horariofim : horariofim
-    
-        })
-    })
-    .then(function(res) {
-        console.log(res);
-        openModal();
-
-        document.querySelector(".nome").value = "";
-        document.querySelector(".qt_participantes").value = ""; 
-        document.querySelector(".data_oficina").value = ""; 
-        document.querySelector(".horarioinicio").value = "";
-        document.querySelector(".horariofim").value = "";
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
-
-}
 

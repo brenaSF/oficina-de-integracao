@@ -227,14 +227,6 @@ function updateDetailsInHTML(data) {
 
 }
 
-function imprimirCertificado() {
-
-    window.print();
-}
-
-
-
-
 function desativarVoluntarioPorId() {
     const id_voluntario = document.getElementById("searchInput").value;
 
@@ -335,3 +327,8 @@ function atualizarVoluntarios() {
 
 }
 
+
+function imprimirCertificado() {
+
+    window.print();
+}

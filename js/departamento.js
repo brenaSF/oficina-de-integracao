@@ -28,6 +28,7 @@ function registrar() {
     })
     .then(function(res) {
         console.log(res);
+        alert("Departamento registrado com sucesso")
     })
     .catch(function(error) {
         console.error(error);
@@ -117,9 +118,12 @@ function consultarDepartamentoPorId() {
             updateDetailsInHTML(data);
 
             console.log("Detalhes da oficina:", data);
+
+            alert("ID de departamento encontrado")
         })
         .catch(error => {
             console.error("Erro ao consultar oficina por id:", error);
+            alert("ID de departamento inexistente")
         });
     } else {
         console.error("ID da oficina não pode estar vazio.");
@@ -166,37 +170,3 @@ function deletarDepartamentoPorId() {
         console.error("ID da oficina não pode estar vazio.");
     }
 }
-
-function atualizarDepartamentos() {
-    const nome = document.querySelector(".nome").value;
-    const responsavel = document.querySelector(".responsavel").value;
-    const id_departamento = document.getElementById("searchInput").value;
-
-
-    fetch(`http://localhost:8080/departamento/${id_departamento}`, {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json" 
-        },
-        method: "PUT",
-        body: JSON.stringify({
-           
-            id_departamento : id_departamento,
-            nome: nome,
-            responsavel: responsavel
-    
-        })
-    })
-    .then(function(res) {
-        console.log(res);
-        openModal();
-
-        document.querySelector(".nome").value = "";
-        document.querySelector(".responsavel").value = ""; 
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
-
-}
-
