@@ -35,6 +35,8 @@ public class Voluntario {
 
     private Boolean active;
 
+    private String departamento;
+
     public Voluntario(RequestVoluntario requestVoluntario){
         this.nome = requestVoluntario.nome();
         this.ra = requestVoluntario.ra();
@@ -43,6 +45,7 @@ public class Voluntario {
         this.curso = requestVoluntario.curso();
         this.periodo = requestVoluntario.periodo();
         this.horas_voluntariadas = requestVoluntario.horas_voluntariadas();
+        this.departamento = requestVoluntario.departamento();
         this.active = true;
 
     }
@@ -78,6 +81,10 @@ public class Voluntario {
 
     public void setHorasVoluntariadas(Integer horas_voluntariadas) {
         this.horas_voluntariadas = horas_voluntariadas;
+    }
+
+    public void setDepartamento(String departamento){
+        this.departamento = departamento;
     }
 
     public Integer getHoras_voluntariadas() {

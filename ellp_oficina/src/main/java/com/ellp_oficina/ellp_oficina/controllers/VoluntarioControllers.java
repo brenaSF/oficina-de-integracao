@@ -75,6 +75,7 @@ public class VoluntarioControllers {
             voluntario.setTelefone(data.telefone());
             voluntario.setCurso(data.curso());
             voluntario.setPeriodo(data.periodo());
+            voluntario.setDepartamento(data.departamento());
             return ResponseEntity.ok(voluntario);
         }else{
             return ResponseEntity.notFound().build();

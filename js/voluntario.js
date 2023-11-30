@@ -25,6 +25,8 @@ function registrar() {
     const telefone = document.querySelector(".telefone").value;
     const curso = document.querySelector(".curso").value;
     const periodo = document.querySelector(".periodo").value;
+    const departamento = document.querySelector(".departamento").value;
+
 
     fetch("http://localhost:8080/voluntario", {
         headers: {
@@ -38,7 +40,8 @@ function registrar() {
             email: email,
             telefone: telefone,
             curso: curso,
-            periodo: periodo
+            periodo: periodo,
+            departamento : departamento
     
         })
     })
@@ -116,6 +119,7 @@ function limpar() {
     document.querySelector(".curso").value = "";
     document.querySelector(".periodo").value = ""; 
     document.querySelector(".horas_voluntariadas").value = ""; 
+    document.querySelector(".departamento").value = ""; 
 
 }
 
@@ -150,7 +154,6 @@ function consultarTodos() {
             const resultElement = document.createElement("p");
             resultsDiv.appendChild(resultElement);
             
-            // Selecione a tabela
             const table = document.querySelector(".table-container table");
             
             const novaLinha = document.createElement("tr");
@@ -216,6 +219,7 @@ function updateDetailsInHTML(data) {
         <p>Telefone: ${data.telefone}</p>
         <p>Curso: ${data.curso}</p>
         <p>Período: ${data.periodo}</p>
+        <p>Departamento: ${data.departamento}</p>
         <p>Horas Voluntariadas: ${data.horas_voluntariadas}</p>
 
     `;
@@ -292,6 +296,7 @@ function atualizarVoluntarios() {
     const telefone = document.querySelector(".telefone").value;
     const curso = document.querySelector(".curso").value;
     const periodo = document.querySelector(".periodo").value;
+    const departamento = document.querySelector(".departamento").value;
     const id_voluntario = document.getElementById("searchInput").value;
 
     fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
@@ -307,7 +312,8 @@ function atualizarVoluntarios() {
             email: email,
             telefone: telefone,
             curso: curso,
-            periodo: periodo
+            periodo: periodo,
+            departamento :departamento
     
         })
     })
@@ -320,6 +326,7 @@ function atualizarVoluntarios() {
         document.querySelector(".telefone").value = "";
         document.querySelector(".curso").value = "";
         document.querySelector(".periodo").value = "";
+        document.querySelector(".departamento").value = "";
         document.getElementById("searchInput").value = "";
     })
     .catch(function(error) {

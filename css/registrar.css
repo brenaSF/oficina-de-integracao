@@ -59,11 +59,6 @@ form{
 
 }
 
-.consultar{
-
-
-}
-
 
 #form-departamento{
 
@@ -246,7 +241,7 @@ select{
 
 #form-atualizar-voluntario{
 
-    height: 135vh;
+    height: 150vh;
 }
 
 #form-atualizar-departamento{
