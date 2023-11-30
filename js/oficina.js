@@ -98,8 +98,7 @@ function consultarTodosOficina() {
         data.forEach(result => {
             const resultElement = document.createElement("p");
             resultsDiv.appendChild(resultElement);
-            
-            // Selecione a tabela
+         
             const table = document.querySelector(".table-container table");
             
             const novaLinha = document.createElement("tr");
@@ -159,12 +158,16 @@ function consultarOficinaPorId() {
             updateDetailsInHTML(data);
 
             console.log("Detalhes da oficina:", data);
+            alert("Consulta encontrada!");
         })
         .catch(error => {
             console.error("Erro ao consultar oficina por id:", error);
+            alert("ID oficina não existe!");
+
         });
     } else {
         console.error("ID da oficina não pode estar vazio.");
+        alert("ID da oficina não pode estar vazio.");
     }
 }
 

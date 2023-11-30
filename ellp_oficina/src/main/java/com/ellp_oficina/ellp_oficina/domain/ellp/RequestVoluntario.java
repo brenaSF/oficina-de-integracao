@@ -19,6 +19,6 @@ public record RequestVoluntario(
 
         String periodo,
 
-        String horas_voluntariadas
+        Integer horas_voluntariadas
 ) {
 }

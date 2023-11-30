@@ -25,7 +25,6 @@ function registrar() {
     const telefone = document.querySelector(".telefone").value;
     const curso = document.querySelector(".curso").value;
     const periodo = document.querySelector(".periodo").value;
-    const departamento = document.querySelector(".departamento").value;
 
     fetch("http://localhost:8080/voluntario", {
         headers: {
@@ -56,7 +55,7 @@ function registrar() {
 const formulario2 = document.querySelector("form");
 
 function obterHorasExistentes(id_voluntario) {
-    return fetch(`http://localhost:8080/voluntario/obterHoras/${id_voluntario}`, {
+    return fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -194,9 +193,12 @@ function consultarVoluntarioPorId() {
             updateDetailsInHTML(data);
 
             console.log("Detalhes da oficina:", data);
+            alert("ID de voluntario encontrado!")
         })
         .catch(error => {
             console.error("Erro ao consultar oficina por id:", error);
+            alert("ID de voluntario inválido!")
+
         });
     } else {
         console.error("ID da oficina não pode estar vazio.");
@@ -259,7 +261,7 @@ function deletarVoluntarioPorId() {
     const id_voluntario = document.getElementById("searchInput").value;
 
     if (id_voluntario.trim() !== "") {
-        fetch(`http://localhost:8080/voluntario/deletarOficina/${id_voluntario}`, {
+        fetch(`http://localhost:8080/voluntario/deletarVoluntario/${id_voluntario}`, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json"

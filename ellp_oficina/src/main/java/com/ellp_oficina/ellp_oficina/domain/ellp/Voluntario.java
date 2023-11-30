@@ -31,7 +31,7 @@ public class Voluntario {
 
     private String periodo;
 
-    private String horas_voluntariadas;
+    private Integer horas_voluntariadas;
 
     private Boolean active;
 
@@ -76,9 +76,13 @@ public class Voluntario {
         this.active = active;
     }
 
-    public void setHorasVoluntariadas(String horas_voluntariadas) {
+    public void setHorasVoluntariadas(Integer horas_voluntariadas) {
         this.horas_voluntariadas = horas_voluntariadas;
     }
 
+    public Integer getHoras_voluntariadas() {
+        
+        return this.horas_voluntariadas;
+    }
 
 }
