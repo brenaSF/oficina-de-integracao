@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.EntityNotFoundException;
+
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,18 +27,18 @@ public class DepartamentoControllers {
         return ResponseEntity.ok(AllDepartamamentos);
     }
 
-    //Retornar departamento por ID
-    @GetMapping("/{id_departamento}")
-    public ResponseEntity getDepartamentoId(@PathVariable String id_departamento) {
-        Optional<Departamento> optionalDepartamento = departamentoRepository.findById(id_departamento);
-
-        if (optionalDepartamento.isPresent()) {
-            Departamento departamento = optionalDepartamento.get();
-            return ResponseEntity.ok(departamento);
+    //Retornar departamento por Nome
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity getDepartamentoPorNome(@PathVariable String nome) {
+        List<Departamento> departamentosEncontrados = departamentoRepository.findByNomeIgnoreCaseStartingWith(nome);
+    
+        if (!departamentosEncontrados.isEmpty()) {
+            return ResponseEntity.ok(departamentosEncontrados);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+    
 
     //Registrar novo departamento
     @PostMapping
@@ -48,28 +50,34 @@ public class DepartamentoControllers {
     }
 
     //Atualizar departamento por ID
-    @PutMapping("/{id}")
+    @PutMapping("/{nome}")
     @Transactional
-    public ResponseEntity atualizarDepartamento(@RequestBody @Valid RequestDepartamento data){
-
-        Optional <Departamento> optionalDepartamento = departamentoRepository.findById(data.id_departamento());
-        if(optionalDepartamento.isPresent()){
+    public ResponseEntity atualizarDepartamento(@RequestBody @Valid RequestDepartamento data, @PathVariable String nome) {
+        Optional<Departamento> optionalDepartamento = departamentoRepository.findByNomeIgnoreCase(nome);
+    
+        if (optionalDepartamento.isPresent()) {
             Departamento departamento = optionalDepartamento.get();
-            departamento.setNome(data.nome());
-            departamento.setResponsavel(data.responsavel());
-
+    
+            if (data.nome() != null) {
+                departamento.setNome(data.nome());
+            }
+            if (data.responsavel() != null) {
+                departamento.setResponsavel(data.responsavel());
+            }
+    
+            departamentoRepository.save(departamento);
+    
             return ResponseEntity.ok(departamento);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
-
     }
 
-    //Deletar departamento por ID
-    @DeleteMapping("/deletarDepartamento/{id}")
+    //Deletar departamento por Nome
+    @DeleteMapping("/deletarDepartamentoNome/{nome}")
     @Transactional
-    public ResponseEntity deletarDepartamento(@PathVariable String id) {
-        Optional<Departamento> optionalDepartamento = departamentoRepository.findById(id);
+    public ResponseEntity deletarVoluntarioNome(@PathVariable String nome) {
+        Optional<Departamento> optionalDepartamento = departamentoRepository.findByNomeIgnoreCase(nome);
         if (optionalDepartamento.isPresent()) {
             Departamento departamento = optionalDepartamento.get();
             departamentoRepository.delete(departamento);
@@ -78,6 +86,7 @@ public class DepartamentoControllers {
             throw new EntityNotFoundException();
         }
     }
+
 
     
 }

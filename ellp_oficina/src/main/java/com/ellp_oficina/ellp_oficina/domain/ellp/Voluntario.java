@@ -92,4 +92,13 @@ public class Voluntario {
         return this.horas_voluntariadas;
     }
 
+    public String getNome() {
+        return this.nome;
+    }
+
+      public String getEmail() {
+        return this.nome;
+    }
+
+
 }

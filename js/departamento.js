@@ -97,11 +97,11 @@ function consultarTodos() {
 
 consultarTodos();
 
-function consultarDepartamentoPorId() {
-    const id_departamento = document.getElementById("searchInput").value;
+function consultarDepartamentoPorNome() {
+    const nome = document.getElementById("searchInput").value;
 
-    if (id_departamento.trim() !== "") {
-        fetch(`http://localhost:8080/departamento/${id_departamento}`, {
+    if (nome.trim() !== "") {
+        fetch(`http://localhost:8080/departamento/nome/${nome}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -115,11 +115,16 @@ function consultarDepartamentoPorId() {
         })
         .then(data => {
 
-            updateDetailsInHTML(data);
-
-            console.log("Detalhes da oficina:", data);
-
-            alert("ID de departamento encontrado")
+            if (Array.isArray(data) && data.length > 0) {
+                // Se houver resultados, trate a lista de voluntários
+                data.forEach(voluntario => {
+                    updateDetailsInHTML(voluntario);
+                    console.log("Detalhes do voluntário:", voluntario);
+                });
+                alert("Voluntários encontrados!");
+            } else {
+                alert("Nenhum voluntário encontrado.");
+            }
         })
         .catch(error => {
             console.error("Erro ao consultar oficina por id:", error);
@@ -145,11 +150,11 @@ function updateDetailsInHTML(data) {
 
 
 
-function deletarDepartamentoPorId() {
-    const id_departamento = document.getElementById("searchInput").value;
+function deletarDepartamentoPorNome() {
+    const nome = document.getElementById("searchInput").value;
 
-    if (id_departamento.trim() !== "") {
-        fetch(`http://localhost:8080/departamento/deletarDepartamento/${id_departamento}`, {
+    if (nome.trim() !== "") {
+        fetch(`http://localhost:8080/departamento/deletarDepartamentoNome/${nome}`, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json"
@@ -159,14 +164,15 @@ function deletarDepartamentoPorId() {
             if (!response.ok) {
                 throw new Error(`Erro na solicitação: ${response.status}`);
             }
-            console.log("Oficina deletada com sucesso!");
+            console.log("Departamento deletada com sucesso!");
             location.reload(); 
             
         })
         .catch(error => {
-            console.error("Erro ao deletar oficina por id:", error);
+            console.error("Erro ao deletar departamento por id:", error);
         });
     } else {
         console.error("ID da oficina não pode estar vazio.");
     }
 }
+

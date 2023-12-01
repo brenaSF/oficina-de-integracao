@@ -57,8 +57,8 @@ function registrar() {
 
 const formulario2 = document.querySelector("form");
 
-function obterHorasExistentes(id_voluntario) {
-    return fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
+function obterHorasExistentes(nome) {
+    return fetch(`http://localhost:8080/voluntario/${nome}`, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -76,38 +76,44 @@ function obterHorasExistentes(id_voluntario) {
     });
 }
 
-function registrar_horas_voluntariadas() {
-    const horas_voluntariadas = parseFloat(document.querySelector(".horas_voluntariadas").value);
-    const id_voluntario = document.getElementById("searchInput").value;
 
-    obterHorasExistentes(id_voluntario)
-    .then(function (horas_existentes) {
-        const novas_horas_totais = horas_existentes + horas_voluntariadas;
+function registrarHorasVoluntariadas() {
+    const horasVoluntariadas = parseFloat(document.querySelector(".horas_voluntariadas").value);
+    const nome = document.getElementById("searchInput").value;
 
-        return fetch(`http://localhost:8080/voluntario/horas_voluntariadas/${id_voluntario}`, {
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            method: "PUT",
-            body: JSON.stringify({
-                id_voluntario: id_voluntario,
-                horas_voluntariadas: novas_horas_totais
-            })
-        });
+    if (isNaN(horasVoluntariadas) || nome.trim() === "") {
+        console.error("Por favor, forneça horas válidas e um nome.");
+        return;
+    }
+
+    fetch(`http://localhost:8080/voluntario/horas/${nome}`, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        method: "PUT",
+        body: JSON.stringify({
+            nome: nome,
+            horas_voluntariadas: horasVoluntariadas
+        })
     })
     .then(function (res) {
+        if (!res.ok) {
+            throw new Error(`Erro na solicitação: ${res.status}`);
+        }
         return res.json();
     })
     .then(function (data) {
         console.log(data);
-        openModal();
-        limpar();
+        openModal(); // Se você deseja abrir um modal, certifique-se de ter essa função implementada
+        limpar(); // Certifique-se de ter a função limpar() implementada
     })
     .catch(function (error) {
-        console.error(error);
+        console.error("Erro ao registrar horas voluntariadas:", error);
     });
 }
+
+
 
 
 
@@ -175,11 +181,11 @@ function consultarTodos() {
 
 consultarTodos();
 
-function consultarVoluntarioPorId() {
-    const id_voluntario = document.getElementById("searchInput").value;
+function consultarVoluntarioPorNome() {
+    const nome = document.getElementById("searchInput").value;
 
-    if (id_voluntario.trim() !== "") {
-        fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
+    if (nome.trim() !== "") {
+        fetch(`http://localhost:8080/voluntario/nome/${nome}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -192,21 +198,26 @@ function consultarVoluntarioPorId() {
             return response.json();
         })
         .then(data => {
-
-            updateDetailsInHTML(data);
-
-            console.log("Detalhes da oficina:", data);
-            alert("ID de voluntario encontrado!")
+            if (Array.isArray(data) && data.length > 0) {
+                // Se houver resultados, trate a lista de voluntários
+                data.forEach(voluntario => {
+                    updateDetailsInHTML(voluntario);
+                    console.log("Detalhes do voluntário:", voluntario);
+                });
+                alert("Voluntários encontrados!");
+            } else {
+                alert("Nenhum voluntário encontrado.");
+            }
         })
         .catch(error => {
-            console.error("Erro ao consultar oficina por id:", error);
-            alert("ID de voluntario inválido!")
-
+            console.error("Erro ao consultar voluntários por nome:", error);
+            alert("Erro ao buscar voluntários.");
         });
     } else {
-        console.error("ID da oficina não pode estar vazio.");
+        console.error("O nome não pode estar vazio.");
     }
 }
+
 
 function updateDetailsInHTML(data) {
     const detailsElement = document.getElementById("voluntarioDetails");
@@ -223,7 +234,6 @@ function updateDetailsInHTML(data) {
         <p>Horas Voluntariadas: ${data.horas_voluntariadas}</p>
 
     `;
-
 
 }
 
@@ -252,80 +262,38 @@ function desativarVoluntarioPorId() {
         console.error("ID da oficina não pode estar vazio.");
     }
 }
+function deletarVoluntarioPorNome() {
+    const nome = document.getElementById("searchInput").value;
 
-function deletarVoluntarioPorId() {
-    const id_voluntario = document.getElementById("searchInput").value;
+    if (nome.trim() !== "") {
 
-    if (id_voluntario.trim() !== "") {
-        fetch(`http://localhost:8080/voluntario/deletarVoluntario/${id_voluntario}`, {
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro na solicitação: ${response.status}`);
-            }
-            console.log("Oficina deletada com sucesso!");
-            location.reload(); 
-            
-        })
-        .catch(error => {
-            console.error("Erro ao deletar oficina por id:", error);
-        });
+        const confirmacao = window.confirm(`Tem certeza de que deseja excluir o voluntário "${nome}"?`);
+
+        if (confirmacao) {
+            fetch(`http://localhost:8080/voluntario/deletarVoluntarioNome/${nome}`, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json"
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na solicitação: ${response.status}`);
+                }
+                console.log("Voluntário deletado com sucesso!");
+                location.reload(); 
+            })
+            .catch(error => {
+                console.error("Erro ao deletar voluntário por nome:", error);
+            });
+        } else {
+            console.log("Exclusão cancelada pelo usuário.");
+        }
     } else {
-        console.error("ID da oficina não pode estar vazio.");
+        console.error("Nome do voluntário não pode estar vazio.");
     }
 }
 
-
-
-
-function atualizarVoluntarios() {
-    const nome = document.querySelector(".nome").value;
-    const email = document.querySelector(".email").value;
-    const telefone = document.querySelector(".telefone").value;
-    const curso = document.querySelector(".curso").value;
-    const periodo = document.querySelector(".periodo").value;
-    const departamento = document.querySelector(".departamento").value;
-    const id_voluntario = document.getElementById("searchInput").value;
-
-    fetch(`http://localhost:8080/voluntario/${id_voluntario}`, {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json" 
-        },
-        method: "PUT",
-        body: JSON.stringify({
-
-            id_voluntario : id_voluntario,
-            nome: nome,
-            email: email,
-            telefone: telefone,
-            curso: curso,
-            periodo: periodo,
-            departamento :departamento
-    
-        })
-    })
-    .then(function(res) {
-        console.log(res);
-        openModal();
-
-        document.querySelector(".nome").value = "";
-        document.querySelector(".email").value = "";
-        document.querySelector(".telefone").value = "";
-        document.querySelector(".curso").value = "";
-        document.querySelector(".periodo").value = "";
-        document.querySelector(".departamento").value = "";
-        document.getElementById("searchInput").value = "";
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
-
-}
 
 
 function imprimirCertificado() {

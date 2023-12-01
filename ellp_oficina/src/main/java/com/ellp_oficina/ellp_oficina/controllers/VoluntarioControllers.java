@@ -18,6 +18,8 @@ import java.util.Map;
 
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.List;
+
 
 @RestController
 @CrossOrigin("*")
@@ -40,18 +42,18 @@ public class VoluntarioControllers {
         return ResponseEntity.ok(allVoluntarios);
     }
 
-    //Retornar todos os voluntários por id_voluntario
-    @GetMapping("/{id_voluntario}")
-    public ResponseEntity getVoluntarioId(@PathVariable String id_voluntario) {
-        Optional<Voluntario> optionalVoluntario = repository.findById(id_voluntario);
 
-        if (optionalVoluntario.isPresent()) {
-            Voluntario voluntario = optionalVoluntario.get();
-            return ResponseEntity.ok(voluntario);
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity getVoluntarioPorNome(@PathVariable String nome) {
+        List<Voluntario> voluntariosEncontrados = repository.findByNomeIgnoreCaseStartingWith(nome);
+    
+        if (!voluntariosEncontrados.isEmpty()) {
+            return ResponseEntity.ok(voluntariosEncontrados);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+    
 
     //Registrar novo voluntário
     @PostMapping
@@ -62,62 +64,70 @@ public class VoluntarioControllers {
         return ResponseEntity.ok().build();
     }
 
-    //Atualizar voluntário por ID
-    @PutMapping("/{id}")
+    @PutMapping("/{nome}")
     @Transactional
-    public ResponseEntity atualizarVoluntario(@RequestBody @Valid RequestVoluntario data){
-
-        Optional <Voluntario> optionalVoluntario = repository.findById(data.id_voluntario());
-        if(optionalVoluntario.isPresent()){
-            Voluntario voluntario = optionalVoluntario.get();
-            voluntario.setNome(data.nome());
-            voluntario.setEmail(data.email());
-            voluntario.setTelefone(data.telefone());
-            voluntario.setCurso(data.curso());
-            voluntario.setPeriodo(data.periodo());
-            voluntario.setDepartamento(data.departamento());
-            return ResponseEntity.ok(voluntario);
-        }else{
-            return ResponseEntity.notFound().build();
-        }
-
-    }
-
-    //Atualizar horas voluntário por ID
-    @PutMapping("/horas_voluntariadas/{id_voluntario}")
-    @Transactional
-    public ResponseEntity atualizarHorasVoluntariadas(@RequestBody @Valid RequestVoluntario data) {
-        Optional<Voluntario> optionalVoluntario = repository.findById(data.id_voluntario());
+    public ResponseEntity atualizarVoluntario(@RequestBody @Valid RequestVoluntario data, @PathVariable String nome) {
+        Optional<Voluntario> optionalVoluntario = repository.findByNomeIgnoreCase(nome);
     
         if (optionalVoluntario.isPresent()) {
             Voluntario voluntario = optionalVoluntario.get();
-            voluntario.setHorasVoluntariadas(data.horas_voluntariadas());
-            repository.save(voluntario); 
+    
+            if (data.nome() != null) {
+                voluntario.setNome(data.nome());
+            }
+            if (data.email() != null) {
+                voluntario.setEmail(data.email());
+            }
+            if (data.telefone() != null) {
+                voluntario.setTelefone(data.telefone());
+            }
+            if (data.curso() != null) {
+                voluntario.setCurso(data.curso());
+            }
+            if (data.periodo() != null) {
+                voluntario.setPeriodo(data.periodo());
+            }
+            if (data.departamento() != null) {
+                voluntario.setDepartamento(data.departamento());
+            }
+    
+            repository.save(voluntario);
+    
             return ResponseEntity.ok(voluntario);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
     
-    //Desativar voluntário por ID
-    @DeleteMapping("/{id}")
+    //Atualizar horas voluntário por nome
+    @PutMapping("/horas/{nome}")
     @Transactional
-    public ResponseEntity desativarVoluntario(@PathVariable String id){
-        Optional<Voluntario> optionalVoluntario = repository.findById(id);
+    public ResponseEntity atualizarHoras(@RequestBody @Valid RequestVoluntario data, @PathVariable String nome) {
+        Optional<Voluntario> optionalVoluntario = repository.findByNomeIgnoreCase(nome);
+    
         if (optionalVoluntario.isPresent()) {
             Voluntario voluntario = optionalVoluntario.get();
-            voluntario.setActive(false);
-            return ResponseEntity.noContent().build();
+
+            int horasInseridas = data.horas_voluntariadas(); 
+
+            int horasAtuais = voluntario.getHoras_voluntariadas();
+
+            voluntario.setHorasVoluntariadas(horasAtuais + horasInseridas);
+    
+            repository.save(voluntario);
+    
+            return ResponseEntity.ok(voluntario);
         } else {
-            throw new EntityNotFoundException();
+            return ResponseEntity.notFound().build();
         }
     }
 
-    //Deletar voluntário por ID
-    @DeleteMapping("/deletarVoluntario/{id}")
+
+    //Deletar voluntário por nome
+    @DeleteMapping("/deletarVoluntarioNome/{nome}")
     @Transactional
-    public ResponseEntity deletarVoluntario(@PathVariable String id) {
-        Optional<Voluntario> optionalVoluntario = repository.findById(id);
+    public ResponseEntity deletarVoluntarioNome(@PathVariable String nome) {
+        Optional<Voluntario> optionalVoluntario = repository.findByNomeIgnoreCase(nome);
         if (optionalVoluntario.isPresent()) {
             Voluntario voluntario = optionalVoluntario.get();
             repository.delete(voluntario);
@@ -126,9 +136,6 @@ public class VoluntarioControllers {
             throw new EntityNotFoundException();
         }
     }
-
-
-
 
 
 }

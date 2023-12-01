@@ -10,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.EntityNotFoundException;
 
-
-
+import java.util.List;
 import java.util.Optional;
 
 
@@ -37,14 +36,13 @@ public class OficinaControllers {
         return ResponseEntity.ok(allOficinas);
     }
 
-    //Retornar oficina por ID
-    @GetMapping("/{id_oficina}")
-    public ResponseEntity getOficinaId(@PathVariable String id_oficina) {
-        Optional<Oficina> optionalOficina = oficinarepository.findById(id_oficina);
-
-        if (optionalOficina.isPresent()) {
-            Oficina oficina = optionalOficina.get();
-            return ResponseEntity.ok(oficina);
+    //Retornar oficina por Nome
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity getVoluntarioPorNome(@PathVariable String nome) {
+        List<Oficina> oficinasEncontradas = oficinarepository.findByNomeIgnoreCaseStartingWith(nome);
+    
+        if (!oficinasEncontradas.isEmpty()) {
+            return ResponseEntity.ok(oficinasEncontradas);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -59,26 +57,39 @@ public class OficinaControllers {
         return ResponseEntity.ok().build();
     }
 
-    //Atualizar oficina por ID
-    @PutMapping("/{id}")
+    //Atualizar oficina por Nome
+    @PutMapping("/{nome}")
     @Transactional
-    public ResponseEntity updateOficina(@RequestBody @Valid RequestOficina data){
-
-        Optional<Oficina> optionalOficina = oficinarepository.findById(data.id_oficina());
-        if(optionalOficina.isPresent()){
+    public ResponseEntity atualizarOficina(@RequestBody @Valid RequestOficina data, @PathVariable String nome) {
+        Optional<Oficina> optionalOficina = oficinarepository.findByNomeIgnoreCase(nome);
+    
+        if (optionalOficina.isPresent()) {
             Oficina oficina = optionalOficina.get();
-            oficina.setNome_oficina(data.nome_oficina());
-            oficina.setQtParticipantes(data.qt_participantes());
-            oficina.setData(data.data_oficina());
-            oficina.setHorarioinicio(data.horarioinicio());
-            oficina.setHorariofim(data.horariofim());
+    
+            if (data.nome_oficina() != null) {
+                oficina.setNome(data.nome_oficina());
+            }
+            if (data.qt_participantes() != null) {
+                oficina.setQtParticipantes(data.qt_participantes());
+            }
+            if (data.data_oficina() != null) {
+                oficina.setDataOficina(data.data_oficina());
+            }
+            if (data.horarioinicio() != null) {
+                oficina.setHorarioinicio(data.horarioinicio());
+            }
+            if (data.horariofim() != null) {
+                oficina.setHorariofim(data.horariofim());
+            }
+
+            oficinarepository.save(oficina);
+    
             return ResponseEntity.ok(oficina);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
-
     }
-
+    
     //DeSATIVAR oficina por ID
     @DeleteMapping("/{id}")
     @Transactional
@@ -93,20 +104,21 @@ public class OficinaControllers {
         }
     }
 
-    //Deletar oficina por ID
-    @DeleteMapping("/deletarOficina/{id}")
-    @Transactional
-    public ResponseEntity deleteOficina(@PathVariable String id) {
-        Optional<Oficina> optionalOficina = oficinarepository.findById(id);
-        if (optionalOficina.isPresent()) {
-            Oficina oficina = optionalOficina.get();
-            oficinarepository.delete(oficina);
-            return ResponseEntity.noContent().build();
-        } else {
-            throw new EntityNotFoundException();
-        }
-    }
-
+   
+     //Deletar voluntário por nome
+     @DeleteMapping("/deletarOficinaNome/{nome}")
+     @Transactional
+     public ResponseEntity deletarVoluntarioNome(@PathVariable String nome) {
+         Optional<Oficina> optionalOficina = oficinarepository.findByNomeIgnoreCase(nome);
+         if (optionalOficina.isPresent()) {
+             Oficina oficina = optionalOficina.get();
+             oficinarepository.delete(oficina);
+             return ResponseEntity.noContent().build();
+         } else {
+             throw new EntityNotFoundException();
+         }
+     }
+ 
 
 
 

@@ -137,11 +137,11 @@ function adicionarCampo() {
 }
 
 
-function consultarOficinaPorId() {
-    const id_oficina = document.getElementById("searchInput").value;
+function consultarOficinaPorNome() {
+    const nome = document.getElementById("searchInput").value;
 
-    if (id_oficina.trim() !== "") {
-        fetch(`http://localhost:8080/oficina/${id_oficina}`, {
+    if (nome.trim() !== "") {
+        fetch(`http://localhost:8080/oficina/nome/${nome}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -155,14 +155,19 @@ function consultarOficinaPorId() {
         })
         .then(data => {
 
-            updateDetailsInHTML(data);
-
-            console.log("Detalhes da oficina:", data);
-            alert("Consulta encontrada!");
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(oficina => {
+                    updateDetailsInHTML(oficina);
+                    console.log("Detalhes do voluntário:", oficina);
+                });
+                alert("Oficinas encontradas!");
+            } else {
+                alert("Nenhum oficina encontrado.");
+            }
         })
         .catch(error => {
             console.error("Erro ao consultar oficina por id:", error);
-            alert("ID oficina não existe!");
+            alert("Nome não existe!");
 
         });
     } else {
@@ -178,7 +183,7 @@ function updateDetailsInHTML(data) {
 
     detailsElement.innerHTML = `
         <p>ID: ${data.id_oficina}</p>
-        <p>Nome: ${data.nome_oficina}</p>
+        <p>Nome: ${data.nome}</p>
         <p>Quantidade de Participantes: ${data.qt_participantes}</p>
         <p>Data: ${data.data_oficina}</p>
         <p>Horário Inicio: ${data.horarioinicio}</p>
@@ -188,31 +193,37 @@ function updateDetailsInHTML(data) {
 }
 
 
-function desativarOficinaPorId() {
-    const id_oficina = document.getElementById("searchInput").value;
+function deletarOficinaPorNome() {
+    const nome = document.getElementById("searchInput").value;
 
-    if (id_oficina.trim() !== "") {
-        fetch(`http://localhost:8080/oficina/${id_oficina}`, {
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro na solicitação: ${response.status}`);
-            }
-            console.log("Oficina deletada com sucesso!");
-            location.reload(); 
-            
-        })
-        .catch(error => {
-            console.error("Erro ao deletar oficina por id:", error);
-        });
+    if (nome.trim() !== "") {
+        const confirmacao = window.confirm(`Tem certeza de que deseja excluir a oficina "${nome}"?`);
+
+        if (confirmacao) {
+            fetch(`http://localhost:8080/oficina/deletarOficinaNome/${nome}`, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json"
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na solicitação: ${response.status}`);
+                }
+                console.log("Oficina deletada com sucesso!");
+                location.reload(); 
+            })
+            .catch(error => {
+                console.error("Erro ao deletar oficina por id:", error);
+            });
+        } else {
+            console.log("Operação de exclusão cancelada pelo usuário.");
+        }
     } else {
-        console.error("ID da oficina não pode estar vazio.");
+        console.error("Nome da oficina não pode estar vazio.");
     }
 }
+
 
 function deletarOficinaPorId() {
     const id_oficina = document.getElementById("searchInput").value;

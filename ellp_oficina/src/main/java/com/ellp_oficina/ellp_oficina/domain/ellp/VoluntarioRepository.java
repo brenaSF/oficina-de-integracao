@@ -12,8 +12,11 @@ public interface VoluntarioRepository extends JpaRepository <Voluntario, String>
 
     List<Voluntario>findAllByActiveTrue();
 
-    Optional<Voluntario> findByNome(String nome);
-
     Optional<Voluntario> findById(String id_voluntario);
+
+    Optional<Voluntario>findByNomeIgnoreCase(String nome);
+
+    List<Voluntario>findByNomeIgnoreCaseStartingWith(String nome);
+
 }
 

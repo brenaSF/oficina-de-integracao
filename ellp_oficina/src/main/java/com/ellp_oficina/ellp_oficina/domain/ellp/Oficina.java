@@ -21,7 +21,7 @@ public class Oficina {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id_oficina;
 
-    private String nome_oficina;
+    private String nome;
 
     private Integer qt_participantes;
 
@@ -35,7 +35,7 @@ public class Oficina {
 
 
     public Oficina(RequestOficina requestOficina){
-        this.nome_oficina = requestOficina.nome_oficina();
+        this.nome = requestOficina.nome_oficina();
         this.qt_participantes = requestOficina.qt_participantes();
         this.data_oficina = requestOficina.data_oficina();
         this.horarioinicio= requestOficina.horarioinicio();
@@ -44,14 +44,14 @@ public class Oficina {
     }
 
     public void setNome_oficina(String nome_oficina) {
-        this.nome_oficina = nome_oficina;
+        this.nome = nome_oficina;
     }
 
     public void setQtParticipantes(Integer qt_participantes) {
         this.qt_participantes = qt_participantes;
     }
 
-    public void setData(String data_oficina) {
+    public void setDataOficina(String data_oficina) {
         this.data_oficina = data_oficina;
     }
 
