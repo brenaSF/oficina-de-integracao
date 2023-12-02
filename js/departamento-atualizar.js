@@ -7,7 +7,7 @@ logoElement.addEventListener("click", function () {
 });
 
 
-function consultarDepartamentoPorId() {
+function consultarDepartamentoPorNome() {
     const nome = document.getElementById("searchInput").value;
 
     if (nome.trim() !== "") {
@@ -25,18 +25,24 @@ function consultarDepartamentoPorId() {
         })
         .then(data => {
 
-            updateDetailsInHTML(data);
+            if (Array.isArray(data) && data.length > 0) {
 
-            console.log("Detalhes da departamento:", data);
-
-            alert("ID de departamento encontrado")
+                data.forEach(departamento => {
+                    updateDetailsDepartamento(departamento);
+                    updateDetailsInHTML(departamento);
+                    console.log("Detalhes do voluntário:", departamento);
+                });
+                alert("Departamento encontrado!");
+            } else {
+                alert("Nenhum departamento encontrado.");
+            }
         })
         .catch(error => {
-            console.error("Erro ao consultar oficina por id:", error);
-            alert("ID de departamento inexistente")
+            console.error("Erro ao consultar departamento por nome:", error);
+            alert("Nome de departamento inexistente")
         });
     } else {
-        console.error("ID da oficina não pode estar vazio.");
+        console.error("Nome do departamento não pode estar vazio.");
     }
 }
 
@@ -51,6 +57,13 @@ function updateDetailsInHTML(data) {
     `;
 
 }
+
+function updateDetailsDepartamento(departamento) {
+    document.getElementById("nome").value = departamento.nome;
+    document.getElementById("responsavel").value = departamento.responsavel;
+
+}
+
 
 function atualizarDepartamentos() {
     const nome_departamento = document.querySelector(".nome").value;
