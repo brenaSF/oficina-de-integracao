@@ -57,26 +57,6 @@ function registrar() {
 
 const formulario2 = document.querySelector("form");
 
-function obterHorasExistentes(nome) {
-    return fetch(`http://localhost:8080/voluntario/${nome}`, {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        method: "GET"
-    })
-    .then(function (res) {
-        return res.json();
-    })
-    .then(function (data) {
-        return data.horas_voluntariadas;
-    })
-    .catch(function (error) {
-        console.error(error);
-    });
-}
-
-
 function registrarHorasVoluntariadas() {
     const horasVoluntariadas = parseFloat(document.querySelector(".horas_voluntariadas").value);
     const nome = document.getElementById("searchInput").value;
@@ -105,8 +85,8 @@ function registrarHorasVoluntariadas() {
     })
     .then(function (data) {
         console.log(data);
-        openModal(); // Se você deseja abrir um modal, certifique-se de ter essa função implementada
-        limpar(); // Certifique-se de ter a função limpar() implementada
+        openModal(); 
+        limpar(); 
     })
     .catch(function (error) {
         console.error("Erro ao registrar horas voluntariadas:", error);
@@ -262,6 +242,8 @@ function desativarVoluntarioPorId() {
         console.error("ID da oficina não pode estar vazio.");
     }
 }
+
+
 function deletarVoluntarioPorNome() {
     const nome = document.getElementById("searchInput").value;
 

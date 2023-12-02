@@ -5,12 +5,11 @@ logoElement.addEventListener("click", function () {
     window.location.href = "principal.html"; 
 });
 
+function consultarOficinaPorNome() {
+    const nome = document.getElementById("searchInput").value;
 
-function consultarOficinaPorId() {
-    const id_oficina = document.getElementById("searchInput").value;
-
-    if (id_oficina.trim() !== "") {
-        fetch(`http://localhost:8080/oficina/${id_oficina}`, {
+    if (nome.trim() !== "") {
+        fetch(`http://localhost:8080/oficina/nome/${nome}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -23,22 +22,27 @@ function consultarOficinaPorId() {
             return response.json();
         })
         .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
 
-            updateDetailsInHTML(data);
-
-            console.log("Detalhes da oficina:", data);
-            alert("Consulta encontrada!");
+                data.forEach(oficina => {
+                    updateDetailsOficina(oficina);
+                    updateDetailsInHTML(oficina);
+                    console.log("Detalhes do voluntário:", oficina);
+                });
+                alert("Oficina encontrados!");
+            } else {
+                alert("Nenhum oficina encontrado.");
+            }
         })
         .catch(error => {
-            console.error("Erro ao consultar oficina por id:", error);
-            alert("ID oficina não existe!");
-
+            console.error("Erro ao consultar oficina por nome:", error);
+            alert("Erro ao buscar oficinas.");
         });
     } else {
-        console.error("ID da oficina não pode estar vazio.");
-        alert("ID da oficina não pode estar vazio.");
+        console.error("O nome não pode estar vazio.");
     }
 }
+
 
 
 function updateDetailsInHTML(data) {
@@ -47,7 +51,7 @@ function updateDetailsInHTML(data) {
 
     detailsElement.innerHTML = `
         <p>ID: ${data.id_oficina}</p>
-        <p>Nome: ${data.nome_oficina}</p>
+        <p>Nome: ${data.nome}</p>
         <p>Quantidade de Participantes: ${data.qt_participantes}</p>
         <p>Data: ${data.data_oficina}</p>
         <p>Horário Inicio: ${data.horarioinicio}</p>
@@ -57,43 +61,60 @@ function updateDetailsInHTML(data) {
 }
 
 
+
+function updateDetailsOficina(voluntario) {
+    document.getElementById("nome").value = voluntario.nome;
+    document.getElementById("qt_participantes").value = voluntario.qt_participantes;
+    document.getElementById("data_oficina").value = voluntario.data_oficina;
+    document.getElementById("horarioinicio").value = voluntario.horarioinicio;
+    document.getElementById("horariofim").value = voluntario.horariofim;
+}
+
+
+
+
 function atualizarOficinas() {
-    const nome = document.querySelector(".nome").value;
+    const nome_oficina = document.querySelector(".nome").value;
     const qt_participantes = document.querySelector(".qt_participantes").value;
     const data_oficina = document.querySelector(".data_oficina").value;
     const horarioinicio = document.querySelector(".horarioinicio").value;
     const horariofim = document.querySelector(".horariofim").value;
-    const id_oficina = document.getElementById("searchInput").value;
+    const nome = document.getElementById("searchInput").value;
 
-    fetch(`http://localhost:8080/oficina/${id_oficina}`, {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json" 
-        },
-        method: "PUT",
-        body: JSON.stringify({
+    const confirmacao = window.confirm(`Tem certeza de que deseja atualizar os dados do voluntário "${nome}"?`);
 
-            id_oficina : id_oficina,
-            nome_oficina: nome,
-            qt_participantes: qt_participantes,
-            data_oficina: data_oficina,
-            horarioinicio: horarioinicio,
-            horariofim : horariofim
-    
+    if(confirmacao){
+        fetch(`http://localhost:8080/oficina/${nome}`, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json" 
+            },
+            method: "PUT",
+            body: JSON.stringify({
+
+                nome: nome_oficina,
+                qt_participantes: qt_participantes,
+                data_oficina: data_oficina,
+                horarioinicio: horarioinicio,
+                horariofim : horariofim
+        
+            })
         })
-    })
-    .then(function(res) {
-        console.log(res);
-        openModal();
+        .then(function(res) {
+            console.log(res);
+            openModal();
 
-        document.querySelector(".nome").value = "";
-        document.querySelector(".qt_participantes").value = ""; 
-        document.querySelector(".data_oficina").value = ""; 
-        document.querySelector(".horarioinicio").value = "";
-        document.querySelector(".horariofim").value = "";
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
+            document.querySelector(".nome").value = "";
+            document.querySelector(".qt_participantes").value = ""; 
+            document.querySelector(".data_oficina").value = ""; 
+            document.querySelector(".horarioinicio").value = "";
+            document.querySelector(".horariofim").value = "";
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
 
+    } else {
+        console.log("Atualização cancelada pelo usuário.");
+    }
 }

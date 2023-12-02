@@ -7,6 +7,17 @@ logoElement.addEventListener("click", function () {
 });
 
 
+function openModal() {
+    document.getElementById("customModal").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("customModal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+
+
 const formulario = document.querySelector("form");
 
 function registrar() {
@@ -28,7 +39,7 @@ function registrar() {
     })
     .then(function(res) {
         console.log(res);
-        alert("Departamento registrado com sucesso")
+        openModal();
     })
     .catch(function(error) {
         console.error(error);
@@ -47,7 +58,6 @@ formulario.addEventListener("submit", function(event) {
     registrar();
     limpar();
 
-    alert("Departamento registrado com sucesso!");
 });
 
 
@@ -116,14 +126,14 @@ function consultarDepartamentoPorNome() {
         .then(data => {
 
             if (Array.isArray(data) && data.length > 0) {
-                // Se houver resultados, trate a lista de voluntários
+
                 data.forEach(voluntario => {
                     updateDetailsInHTML(voluntario);
-                    console.log("Detalhes do voluntário:", voluntario);
+                    console.log("Detalhes do departamento:", voluntario);
                 });
-                alert("Voluntários encontrados!");
+                alert("Departamentos encontrados!");
             } else {
-                alert("Nenhum voluntário encontrado.");
+                alert("Nenhum departamento encontrado.");
             }
         })
         .catch(error => {
@@ -154,25 +164,32 @@ function deletarDepartamentoPorNome() {
     const nome = document.getElementById("searchInput").value;
 
     if (nome.trim() !== "") {
-        fetch(`http://localhost:8080/departamento/deletarDepartamentoNome/${nome}`, {
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro na solicitação: ${response.status}`);
-            }
-            console.log("Departamento deletada com sucesso!");
-            location.reload(); 
-            
-        })
-        .catch(error => {
-            console.error("Erro ao deletar departamento por id:", error);
-        });
-    } else {
-        console.error("ID da oficina não pode estar vazio.");
-    }
+
+        const confirmacao = window.confirm(`Tem certeza de que deseja excluir a oficina "${nome}"?`);
+        if (confirmacao) {
+
+            fetch(`http://localhost:8080/departamento/deletarDepartamentoNome/${nome}`, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json"
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na solicitação: ${response.status}`);
+                }
+                console.log("Departamento deletada com sucesso!");
+                location.reload(); 
+                
+            })
+            .catch(error => {
+                console.error("Erro ao deletar departamento por nome:", error);
+            });
+        } else {
+            console.log("Operação de exclusão cancelada pelo usuário.");
+        }
+        } else {
+            console.error("ID da oficina não pode estar vazio.");
+        }
 }
 

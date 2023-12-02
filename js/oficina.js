@@ -37,22 +37,15 @@ function registrar() {
             qt_participantes: qt_participantes,
             data_oficina: data_oficina,
             horarioinicio: horarioinicio,
-            horariofim : horariofim,
-            duracao : null
+            horariofim : horariofim
         })
     })
     .then(function(res) {
-        if (!res.ok) {
-            throw new Error(`HTTP error! Status: ${res.status}`);
-        }
-        return res.json();
-    })
-    .then(function(data) {
-        console.log(data);
+        console.log(res);
         openModal();
     })
     .catch(function(error) {
-        console.error('Error:', error);
+        console.error(error);
     });
 }
 
@@ -221,33 +214,6 @@ function deletarOficinaPorNome() {
         }
     } else {
         console.error("Nome da oficina não pode estar vazio.");
-    }
-}
-
-
-function deletarOficinaPorId() {
-    const id_oficina = document.getElementById("searchInput").value;
-
-    if (id_oficina.trim() !== "") {
-        fetch(`http://localhost:8080/oficina/deletarOficina/${id_oficina}`, {
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro na solicitação: ${response.status}`);
-            }
-            console.log("Oficina deletada com sucesso!");
-            location.reload(); 
-            
-        })
-        .catch(error => {
-            console.error("Erro ao deletar oficina por id:", error);
-        });
-    } else {
-        console.error("ID da oficina não pode estar vazio.");
     }
 }
 

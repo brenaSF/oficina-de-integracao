@@ -1,4 +1,12 @@
 
+const logoElement = document.getElementById("logo"); 
+
+logoElement.addEventListener("click", function () {
+ 
+    window.location.href = "principal.html"; 
+});
+
+
 function consultarVoluntarioPorNome() {
     const nome = document.getElementById("searchInput").value;
 
@@ -70,7 +78,6 @@ function updateDetailsVoluntario(voluntario) {
 
 
 
-
 function atualizarVoluntarios() {
     const nomeVoluntario = document.querySelector(".nome").value;
     const email = document.querySelector(".email").value;
@@ -80,36 +87,40 @@ function atualizarVoluntarios() {
     const departamento = document.querySelector(".departamento").value;
     const nome = document.getElementById("searchInput").value;
 
-    fetch(`http://localhost:8080/voluntario/${nome}`, {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json" 
-        },
-        method: "PUT",
-        body: JSON.stringify({
-            nome: nomeVoluntario,
-            email: email,
-            telefone: telefone,
-            curso: curso,
-            periodo: periodo,
-            departamento :departamento
-    
+    const confirmacao = window.confirm(`Tem certeza de que deseja atualizar os dados do voluntário "${nome}"?`);
+
+    if (confirmacao) {
+        fetch(`http://localhost:8080/voluntario/${nome}`, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            method: "PUT",
+            body: JSON.stringify({
+                nome: nomeVoluntario,
+                email: email,
+                telefone: telefone,
+                curso: curso,
+                periodo: periodo,
+                departamento: departamento
+            })
         })
-    })
-    .then(function(res) {
-        console.log(res);
-        openModal();
+        .then(function(res) {
+            console.log(res);
+            openModal();
 
-        document.querySelector(".nome").value = "";
-        document.querySelector(".email").value = "";
-        document.querySelector(".telefone").value = "";
-        document.querySelector(".curso").value = "";
-        document.querySelector(".periodo").value = "";
-        document.querySelector(".departamento").value = "";
-        document.getElementById("searchInput").value = "";
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
-
+            document.querySelector(".nome").value = "";
+            document.querySelector(".email").value = "";
+            document.querySelector(".telefone").value = "";
+            document.querySelector(".curso").value = "";
+            document.querySelector(".periodo").value = "";
+            document.querySelector(".departamento").value = "";
+            document.getElementById("searchInput").value = "";
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+    } else {
+        console.log("Atualização cancelada pelo usuário.");
+    }
 }
