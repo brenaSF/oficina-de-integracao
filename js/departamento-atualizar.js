@@ -8,10 +8,10 @@ logoElement.addEventListener("click", function () {
 
 
 function consultarDepartamentoPorId() {
-    const id_departamento = document.getElementById("searchInput").value;
+    const nome = document.getElementById("searchInput").value;
 
-    if (id_departamento.trim() !== "") {
-        fetch(`http://localhost:8080/departamento/${id_departamento}`, {
+    if (nome.trim() !== "") {
+        fetch(`http://localhost:8080/departamento/nome/${nome}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -27,7 +27,7 @@ function consultarDepartamentoPorId() {
 
             updateDetailsInHTML(data);
 
-            console.log("Detalhes da oficina:", data);
+            console.log("Detalhes da departamento:", data);
 
             alert("ID de departamento encontrado")
         })
@@ -50,18 +50,15 @@ function updateDetailsInHTML(data) {
 
     `;
 
-
 }
 
-
-
 function atualizarDepartamentos() {
-    const nome = document.querySelector(".nome").value;
+    const nome_departamento = document.querySelector(".nome").value;
     const responsavel = document.querySelector(".responsavel").value;
-    const id_departamento = document.getElementById("searchInput").value;
+    const nome = document.getElementById("searchInput").value;
 
 
-    fetch(`http://localhost:8080/departamento/${id_departamento}`, {
+    fetch(`http://localhost:8080/departamento/${nome}`, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json" 
@@ -69,8 +66,7 @@ function atualizarDepartamentos() {
         method: "PUT",
         body: JSON.stringify({
            
-            id_departamento : id_departamento,
-            nome: nome,
+            nome: nome_departamento,
             responsavel: responsavel
     
         })

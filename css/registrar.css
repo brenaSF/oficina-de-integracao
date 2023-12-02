@@ -59,6 +59,11 @@ form{
 
 }
 
+#form-registrar-voluntario{
+
+    height: 140vh;
+}
+
 
 #form-departamento{
 
@@ -136,6 +141,7 @@ select{
 }
 
 .botao-addVoluntario {
+
     background-color: #4CAF50;
 
     color: white;

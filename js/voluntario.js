@@ -61,11 +61,6 @@ function registrarHorasVoluntariadas() {
     const horasVoluntariadas = parseFloat(document.querySelector(".horas_voluntariadas").value);
     const nome = document.getElementById("searchInput").value;
 
-    if (isNaN(horasVoluntariadas) || nome.trim() === "") {
-        console.error("Por favor, forneça horas válidas e um nome.");
-        return;
-    }
-
     fetch(`http://localhost:8080/voluntario/horas/${nome}`, {
         headers: {
             "Accept": "application/json",
@@ -92,8 +87,6 @@ function registrarHorasVoluntariadas() {
         console.error("Erro ao registrar horas voluntariadas:", error);
     });
 }
-
-
 
 
 
