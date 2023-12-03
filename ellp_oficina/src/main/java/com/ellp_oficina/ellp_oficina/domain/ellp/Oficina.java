@@ -35,7 +35,7 @@ public class Oficina {
 
 
     public Oficina(RequestOficina requestOficina){
-        this.nome = requestOficina.nome_oficina();
+        this.nome = requestOficina.nome();
         this.qt_participantes = requestOficina.qt_participantes();
         this.data_oficina = requestOficina.data_oficina();
         this.horarioinicio= requestOficina.horarioinicio();

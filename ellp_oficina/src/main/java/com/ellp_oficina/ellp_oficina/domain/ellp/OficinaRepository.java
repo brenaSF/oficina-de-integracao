@@ -10,8 +10,8 @@ public interface OficinaRepository extends JpaRepository <Oficina, String> {
 
         List<Oficina>findAllByActiveTrue();
 
-        List<Oficina>findByNomeIgnoreCaseStartingWith(String nome_oficina);
+        List<Oficina>findByNomeIgnoreCaseStartingWith(String nome);
 
-        Optional<Oficina>findByNomeIgnoreCase(String nome_oficina);
+        Optional<Oficina>findByNomeIgnoreCase(String nome);
 
 }

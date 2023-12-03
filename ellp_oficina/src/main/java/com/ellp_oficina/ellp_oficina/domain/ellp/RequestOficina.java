@@ -10,7 +10,7 @@ public record RequestOficina(
         String id_oficina,
 
         @NotBlank
-        String nome_oficina,
+        String nome,
 
         Integer qt_participantes,
 

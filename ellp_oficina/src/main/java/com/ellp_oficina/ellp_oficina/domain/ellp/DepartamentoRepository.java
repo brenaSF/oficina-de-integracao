@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface DepartamentoRepository extends JpaRepository <Departamento, String> {
 
-       List<Departamento>findByNomeIgnoreCaseStartingWith(String nome_departamento);
+       List<Departamento>findByNomeIgnoreCaseStartingWith(String nome);
 
-        Optional<Departamento>findByNomeIgnoreCase(String nome_departamento);
+        Optional<Departamento>findByNomeIgnoreCase(String nome);
 
 } 

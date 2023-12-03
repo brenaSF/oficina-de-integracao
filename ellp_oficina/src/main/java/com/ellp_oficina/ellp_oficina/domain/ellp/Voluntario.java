@@ -96,9 +96,8 @@ public class Voluntario {
         return this.nome;
     }
 
-      public String getEmail() {
-        return this.nome;
-    }
+  
+
 
 
 }

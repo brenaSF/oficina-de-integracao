@@ -66,8 +66,8 @@ public class OficinaControllers {
         if (optionalOficina.isPresent()) {
             Oficina oficina = optionalOficina.get();
     
-            if (data.nome_oficina() != null) {
-                oficina.setNome(data.nome_oficina());
+            if (data.nome() != null) {
+                oficina.setNome(data.nome());
             }
             if (data.qt_participantes() != null) {
                 oficina.setQtParticipantes(data.qt_participantes());

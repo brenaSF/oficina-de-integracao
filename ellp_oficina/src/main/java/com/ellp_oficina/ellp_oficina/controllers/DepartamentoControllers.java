@@ -49,7 +49,7 @@ public class DepartamentoControllers {
         return ResponseEntity.ok().build();
     }
 
-    //Atualizar departamento por ID
+    //Atualizar departamento por Nome
     @PutMapping("/{nome}")
     @Transactional
     public ResponseEntity atualizarDepartamento(@RequestBody @Valid RequestDepartamento data, @PathVariable String nome) {
