@@ -66,9 +66,8 @@ function updateDetailsDepartamento(departamento) {
 
 
 function atualizarDepartamentos() {
-    const nome_departamento = document.querySelector(".nome").value;
+    const nome = document.querySelector(".nome").value;
     const responsavel = document.querySelector(".responsavel").value;
-    const nome = document.getElementById("searchInput").value;
 
 
     fetch(`http://localhost:8080/departamento/${nome}`, {
@@ -79,7 +78,7 @@ function atualizarDepartamentos() {
         method: "PUT",
         body: JSON.stringify({
            
-            nome: nome_departamento,
+            nome: nome,
             responsavel: responsavel
     
         })

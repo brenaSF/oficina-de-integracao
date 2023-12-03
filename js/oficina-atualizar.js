@@ -62,24 +62,23 @@ function updateDetailsInHTML(data) {
 
 
 
-function updateDetailsOficina(voluntario) {
-    document.getElementById("nome").value = voluntario.nome;
-    document.getElementById("qt_participantes").value = voluntario.qt_participantes;
-    document.getElementById("data_oficina").value = voluntario.data_oficina;
-    document.getElementById("horarioinicio").value = voluntario.horarioinicio;
-    document.getElementById("horariofim").value = voluntario.horariofim;
+function updateDetailsOficina(oficina) {
+    document.getElementById("nome").value = oficina.nome;
+    document.getElementById("qt_participantes").value = oficina.qt_participantes;
+    document.getElementById("data_oficina").value = oficina.data_oficina;
+    document.getElementById("horarioinicio").value = oficina.horarioinicio;
+    document.getElementById("horariofim").value = oficina.horariofim;
 }
 
 
 
 
 function atualizarOficinas() {
-    const nome_oficina = document.querySelector(".nome").value;
+    const nome = document.querySelector(".nome").value;
     const qt_participantes = document.querySelector(".qt_participantes").value;
     const data_oficina = document.querySelector(".data_oficina").value;
     const horarioinicio = document.querySelector(".horarioinicio").value;
     const horariofim = document.querySelector(".horariofim").value;
-    const nome = document.getElementById("searchInput").value;
 
     const confirmacao = window.confirm(`Tem certeza de que deseja atualizar os dados do voluntário "${nome}"?`);
 
@@ -92,7 +91,7 @@ function atualizarOficinas() {
             method: "PUT",
             body: JSON.stringify({
 
-                nome: nome_oficina,
+                nome: nome,
                 qt_participantes: qt_participantes,
                 data_oficina: data_oficina,
                 horarioinicio: horarioinicio,

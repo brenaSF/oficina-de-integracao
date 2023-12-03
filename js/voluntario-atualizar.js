@@ -79,13 +79,12 @@ function updateDetailsVoluntario(voluntario) {
 
 
 function atualizarVoluntarios() {
-    const nomeVoluntario = document.querySelector(".nome").value;
+    const nome = document.querySelector(".nome").value;
     const email = document.querySelector(".email").value;
     const telefone = document.querySelector(".telefone").value;
     const curso = document.querySelector(".curso").value;
     const periodo = document.querySelector(".periodo").value;
     const departamento = document.querySelector(".departamento").value;
-    const nome = document.getElementById("searchInput").value;
 
     const confirmacao = window.confirm(`Tem certeza de que deseja atualizar os dados do voluntário "${nome}"?`);
 
@@ -97,7 +96,7 @@ function atualizarVoluntarios() {
             },
             method: "PUT",
             body: JSON.stringify({
-                nome: nomeVoluntario,
+                nome: nome,
                 email: email,
                 telefone: telefone,
                 curso: curso,
