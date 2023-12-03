@@ -71,7 +71,7 @@ public class LoginControllers {
             login.setActive(false);
             return ResponseEntity.noContent().build();
         } else {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Usuário com o nome '" + id + "' não encontrado.");      
         }
     }
 

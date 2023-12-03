@@ -115,7 +115,7 @@ public class OficinaControllers {
              oficinarepository.delete(oficina);
              return ResponseEntity.noContent().build();
          } else {
-             throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Oficina com o nome '" + nome + "' não encontrado.");  
          }
      }
  

@@ -83,7 +83,7 @@ public class DepartamentoControllers {
             departamentoRepository.delete(departamento);
             return ResponseEntity.noContent().build();
         } else {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Departamento com o nome '" + nome + "' não encontrado.");     
         }
     }
 

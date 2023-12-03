@@ -133,8 +133,7 @@ public class VoluntarioControllers {
             repository.delete(voluntario);
             return ResponseEntity.noContent().build();
         } else {
-            throw new EntityNotFoundException();
-        }
+            throw new EntityNotFoundException("Voluntário com o nome '" + nome + "' não encontrado.");        }
     }
 
 
