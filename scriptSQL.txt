@@ -11,7 +11,7 @@ CREATE TABLE oficina (
 
 CREATE TABLE voluntario (
     id_voluntario SERIAL PRIMARY KEY,
-    nome TEXT UNIQUE NOT NULL,
+    nome TEXT NOT NULL,
     ra TEXT NOT NULL,
     email TEXT NOT NULL,
     telefone TEXT NOT NULL,
@@ -54,3 +54,7 @@ ALTER COLUMN id_login SET DATA TYPE TEXT;
 
 ALTER TABLE departamento
 ALTER COLUMN id_departamento SET DATA TYPE TEXT;
+
+ALTER TABLE departamento
+ADD CONSTRAINT nome UNIQUE (nome);
+
