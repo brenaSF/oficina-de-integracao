@@ -6,6 +6,16 @@ logoElement.addEventListener("click", function () {
     window.location.href = "principal.html"; 
 });
 
+function openModal() {
+    document.getElementById("customModal").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("customModal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+
 
 function consultarVoluntarioPorNome() {
     const nome = document.getElementById("searchInput").value;
@@ -133,10 +143,12 @@ function atualizarVoluntarios() {
                 departamento: departamento
             })
         })
+        .then(function (data) {
+            console.log(data);
+            openModal(); 
+        })
         .then(function(res) {
             console.log(res);
-            openModal();
-
             document.querySelector(".nome").value = "";
             document.querySelector(".email").value = "";
             document.querySelector(".telefone").value = "";
@@ -151,5 +163,7 @@ function atualizarVoluntarios() {
     } else {
         console.log("Atualização cancelada pelo usuário.");
     }
+
+    
 }
 

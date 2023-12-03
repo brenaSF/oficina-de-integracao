@@ -41,9 +41,7 @@ function registrar() {
             telefone: telefone,
             curso: curso,
             periodo: periodo,
-            departamento : departamento,
-            horas_voluntariadas : 0
-    
+            departamento : departamento
         })
     })
     .then(function(res) {

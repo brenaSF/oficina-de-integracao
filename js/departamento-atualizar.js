@@ -6,6 +6,16 @@ logoElement.addEventListener("click", function () {
     window.location.href = "principal.html"; 
 });
 
+function openModal() {
+    document.getElementById("customModal").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("customModal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+
 
 function consultarDepartamentoPorNome() {
     const nome = document.getElementById("searchInput").value;
