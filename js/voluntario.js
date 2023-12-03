@@ -41,7 +41,8 @@ function registrar() {
             telefone: telefone,
             curso: curso,
             periodo: periodo,
-            departamento : departamento
+            departamento : departamento,
+            horas_voluntariadas : 0
     
         })
     })
@@ -275,3 +276,24 @@ function imprimirCertificado() {
 
     window.print();
 }
+
+function ListarDepartamentos() {
+    var select = document.getElementById("departamento");
+
+    fetch("http://localhost:8080/departamento/AllDepartamentos")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(departamento => {
+                var option = document.createElement("option");
+                option.value = departamento.nome;
+                option.text = departamento.nome;
+                select.add(option);
+            });
+        })
+        .catch(error => console.error('Erro ao obter departamentos:', error));
+
+  
+}
+
+
+ListarDepartamentos();

@@ -21,7 +21,7 @@ public class DepartamentoControllers {
     private DepartamentoRepository departamentoRepository;
 
     //Retornar todos os departamentos 
-    @GetMapping("/AllDepartamamentos") 
+    @GetMapping("/AllDepartamentos") 
     public ResponseEntity getAllDepartamamentos() {
         var AllDepartamamentos = departamentoRepository.findAll();
         return ResponseEntity.ok(AllDepartamamentos);

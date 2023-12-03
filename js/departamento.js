@@ -63,7 +63,7 @@ formulario.addEventListener("submit", function(event) {
 
 
 function consultarTodos() {
-    fetch("http://localhost:8080/departamento/AllDepartamamentos", {
+    fetch("http://localhost:8080/departamento/AllDepartamentos", {
         method: "GET",
         headers: {
             "Accept": "application/json"

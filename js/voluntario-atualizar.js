@@ -77,6 +77,35 @@ function updateDetailsVoluntario(voluntario) {
 
 
 
+function ListarDepartamentos() {
+    var select = document.getElementById("departamento");
+
+    fetch("http://localhost:8080/departamento/AllDepartamentos")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(departamento => {
+                var option = document.createElement("option");
+                option.value = departamento.nome;
+                option.text = departamento.nome;
+                select.add(option);
+            });
+        })
+        .catch(error => console.error('Erro ao obter departamentos:', error));
+
+        var select = document.getElementById("departamento");
+        console.log(select); 
+        if (select) {
+            select.addEventListener("change", function() {
+                alert("Departamento selecionado: " + select.value);
+            });
+        }
+        
+}
+
+
+ListarDepartamentos();
+
+
 
 function atualizarVoluntarios() {
     const nome = document.querySelector(".nome").value;
@@ -123,3 +152,4 @@ function atualizarVoluntarios() {
         console.log("Atualização cancelada pelo usuário.");
     }
 }
+

@@ -96,3 +96,21 @@ function atualizarDepartamentos() {
 
 }
 
+
+function ListarVoluntarios() {
+    var select = document.getElementById("responsavel");
+
+    fetch("http://localhost:8080/voluntario/allVoluntarios")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(voluntario => {
+                var option = document.createElement("option");
+                option.value = voluntario.nome;
+                option.text = voluntario.nome;
+                select.add(option);
+            });
+        })
+        .catch(error => console.error('Erro ao obter voluntarios:', error));
+}
+
+ListarVoluntarios();
