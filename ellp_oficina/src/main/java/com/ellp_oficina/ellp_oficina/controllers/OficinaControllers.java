@@ -108,7 +108,7 @@ public class OficinaControllers {
      //Deletar voluntário por nome
      @DeleteMapping("/deletarOficinaNome/{nome}")
      @Transactional
-     public ResponseEntity deletarVoluntarioNome(@PathVariable String nome) {
+     public ResponseEntity deletarOficinaNome(@PathVariable String nome) {
          Optional<Oficina> optionalOficina = oficinarepository.findByNomeIgnoreCase(nome);
          if (optionalOficina.isPresent()) {
              Oficina oficina = optionalOficina.get();
@@ -118,6 +118,21 @@ public class OficinaControllers {
             throw new EntityNotFoundException("Oficina com o nome '" + nome + "' não encontrado.");  
          }
      }
+
+     //Deletar voluntário por nome
+     @DeleteMapping("/deletarOficinaID/{id_oficina}")
+     @Transactional
+     public ResponseEntity deletarOficinaID(@PathVariable String id_oficina) {
+        Optional<Oficina> optionalOficina = oficinarepository.findById(id_oficina);
+        if (optionalOficina.isPresent()) {
+             Oficina oficina = optionalOficina.get();
+             oficinarepository.delete(oficina);
+             return ResponseEntity.noContent().build();
+         } else {
+            throw new EntityNotFoundException("Oficina com o id '" + id_oficina + "' não encontrado.");  
+         }
+     }
+ 
  
 
 

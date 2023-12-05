@@ -26,6 +26,7 @@ function registrar() {
     const curso = document.querySelector(".curso").value;
     const periodo = document.querySelector(".periodo").value;
     const departamento = document.querySelector(".departamento").value;
+    const horas_voluntariadas = document.querySelector(".horas_voluntariadas").value;
 
 
     fetch("http://localhost:8080/voluntario", {
@@ -41,7 +42,8 @@ function registrar() {
             telefone: telefone,
             curso: curso,
             periodo: periodo,
-            departamento : departamento
+            departamento : departamento,
+            horas_voluntariadas : horas_voluntariadas
         })
     })
     .then(function(res) {
@@ -52,41 +54,6 @@ function registrar() {
         console.error(error);
     });
 }
-
-
-const formulario2 = document.querySelector("form");
-
-function registrarHorasVoluntariadas() {
-    const horasVoluntariadas = parseFloat(document.querySelector(".horas_voluntariadas").value);
-    const nome = document.getElementById("searchInput").value;
-
-    fetch(`http://localhost:8080/voluntario/horas/${nome}`, {
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        method: "PUT",
-        body: JSON.stringify({
-            nome: nome,
-            horas_voluntariadas: horasVoluntariadas
-        })
-    })
-    .then(function (res) {
-        if (!res.ok) {
-            throw new Error(`Erro na solicitação: ${res.status}`);
-        }
-        return res.json();
-    })
-    .then(function (data) {
-        console.log(data);
-        openModal(); 
-        limpar(); 
-    })
-    .catch(function (error) {
-        console.error("Erro ao registrar horas voluntariadas:", error);
-    });
-}
-
 
 
 function limpar() {
@@ -269,7 +236,6 @@ function deletarVoluntarioPorNome() {
 }
 
 
-
 function imprimirCertificado() {
 
     window.print();
@@ -295,3 +261,61 @@ function ListarDepartamentos() {
 
 
 ListarDepartamentos();
+
+
+
+function ListarVoluntarios() {
+    var listaVoluntarios = document.getElementById("listaVoluntarios");
+
+    fetch("http://localhost:8080/voluntario/allVoluntarios")
+        .then(response => response.json())
+        .then(data => {
+            mostrarVoluntarios(data);
+            listaVoluntarios.style.display = "block"; 
+            listaVoluntarios.style.display = "block"; // Exibe a lista ao obter voluntários
+            listaVoluntarios.style.listStyle = "none";
+            listaVoluntarios.style.padding = "10px";
+            listaVoluntarios.style.margin = "0";
+            listaVoluntarios.style.textAlign = "center";
+            listaVoluntarios.style.border = "1px solid #ccc";
+            listaVoluntarios.style.borderRadius = "8px";
+            listaVoluntarios.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.1)";
+        })
+        .catch(error => console.error('Erro ao obter voluntarios:', error));
+}
+
+function mostrarVoluntarios(voluntarios) {
+    var listaVoluntariosElement = document.getElementById("listaVoluntarios");
+    listaVoluntariosElement.innerHTML = ''; // Limpa a lista
+
+    voluntarios.forEach(voluntario => {
+        var listItem = document.createElement("li");
+        listItem.textContent = voluntario.nome;
+        listaVoluntariosElement.appendChild(listItem);
+    });
+}
+
+function filtrarVoluntarios() {
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toUpperCase();
+
+    fetch("http://localhost:8080/voluntario/allVoluntarios")
+        .then(response => response.json())
+        .then(data => {
+            var voluntariosFiltrados = data.filter(voluntario =>
+                voluntario.nome.toUpperCase().includes(filter)
+            );
+            mostrarVoluntarios(voluntariosFiltrados);
+        })
+        .catch(error => console.error('Erro ao filtrar voluntarios:', error));
+}
+
+var searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("click", function() {
+    ListarVoluntarios();
+});
+
+var form = document.querySelector('.consultar');
+form.addEventListener('input', filtrarVoluntarios);
+
+

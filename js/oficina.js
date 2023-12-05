@@ -129,7 +129,6 @@ function adicionarCampo() {
     divResult.appendChild(novoCampo);
 }
 
-
 function consultarOficinaPorNome() {
     const nome = document.getElementById("searchInput").value;
 
@@ -150,10 +149,9 @@ function consultarOficinaPorNome() {
 
             if (Array.isArray(data) && data.length > 0) {
                 data.forEach(oficina => {
-                    updateDetailsInHTML(oficina);
+                    mostrarDetalhesPopup(oficina);
                     console.log("Detalhes do voluntário:", oficina);
                 });
-                alert("Oficinas encontradas!");
             } else {
                 alert("Nenhum oficina encontrado.");
             }
@@ -161,13 +159,64 @@ function consultarOficinaPorNome() {
         .catch(error => {
             console.error("Erro ao consultar oficina por id:", error);
             alert("Nome não existe!");
-
         });
     } else {
         console.error("ID da oficina não pode estar vazio.");
         alert("ID da oficina não pode estar vazio.");
     }
 }
+
+function mostrarDetalhesPopup(oficina) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = `
+        <div class="popup-content">
+            <span class="close" onclick="fecharPopup(this)">X</span>
+            <p>Detalhes da oficina:</p>
+            <p>ID: ${oficina.id_oficina}</p>
+            <p>Nome: ${oficina.nome}</p>
+            <p>Qt. Participantes: ${oficina.qt_participantes}</p>
+            <p>Data: ${oficina.data_oficina}</p>
+            <p>Horário Início: ${oficina.horarioinicio}</p>
+            <p>Horário Fim: ${oficina.horariofim}</p>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    popup.style.display = 'block';
+
+    const popupContent = popup.querySelector('.popup-content');
+    popupContent.style.borderRadius = '20px';
+    popupContent.style.backgroundColor = '#1e3a5e'; 
+    popupContent.style.color = '#ffffff';  
+    popupContent.style.padding = '20px';
+    popupContent.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';  
+
+    const closeButton = popup.querySelector('.close');
+    closeButton.style.color = '#ffffff';  
+    closeButton.style.fontSize = '24px';
+    closeButton.style.fontWeight = 'bold';
+    closeButton.style.cursor = 'pointer';
+
+    closeButton.addEventListener('mouseover', function () {
+        closeButton.style.color = '#ffd700';  
+    });
+
+    closeButton.addEventListener('mouseout', function () {
+        closeButton.style.color = '#ffffff';  
+    });
+}
+
+function fecharPopup(element) {
+    const popup = element.closest('.popup');
+    
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
+
+
 
 
 function updateDetailsInHTML(data) {
@@ -219,3 +268,55 @@ function deletarOficinaPorNome() {
 
 
 
+function ListarOficinas() {
+    var listaOficinas = document.getElementById("listaOficinas");
+
+    fetch("http://localhost:8080/oficina/AllOficinas")
+        .then(response => response.json())
+        .then(data => {
+            mostrarOficinas(data);
+            listaOficinas.style.display = "block"; 
+            listaOficinas.style.display = "block"; 
+            listaOficinas.style.listStyle = "none";
+            listaOficinas.style.padding = "10px";
+            listaOficinas.style.margin = "0";
+            listaOficinas.style.textAlign = "center";
+            listaOficinas.style.border = "1px solid #ccc";
+            listaOficinas.style.borderRadius = "8px";
+            listaOficinas.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.1)";
+        })
+        .catch(error => console.error('Erro ao obter oficinas:', error));
+}
+
+function mostrarOficinas(oficina) {
+    var listaOficinasElement = document.getElementById("listaOficinas");
+    listaOficinasElement.innerHTML = ''; 
+    oficina.forEach(oficina => {
+        var listItem = document.createElement("li");
+        listItem.textContent = oficina.nome;
+        listaOficinasElement.appendChild(listItem);
+    });
+}
+
+function filtrarOficinas() {
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toUpperCase();
+
+    fetch("http://localhost:8080/oficina/AllOficinas")
+        .then(response => response.json())
+        .then(data => {
+            var oficinaFiltrados = data.filter(oficina =>
+                oficina.nome.toUpperCase().includes(filter)
+            );
+            mostrarOficinas(oficinaFiltrados);
+        })
+        .catch(error => console.error('Erro ao filtrar oficinas:', error));
+}
+
+var searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("click", function() {
+    ListarOficinas();
+});
+
+var form = document.querySelector('.consultar');
+form.addEventListener('input', filtrarOficinas);

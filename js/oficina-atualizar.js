@@ -117,3 +117,23 @@ function atualizarOficinas() {
         console.log("Atualização cancelada pelo usuário.");
     }
 }
+
+
+
+function ListarOficinas() {
+    var select = document.getElementById("searchInput");
+
+    fetch("http://localhost:8080/oficina/AllOficinas")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(oficina => {
+                var option = document.createElement("option");
+                option.value = oficina.nome;
+                option.text = oficina.nome;
+                select.add(option);
+            });
+        })
+        .catch(error => console.error('Erro ao obter oficinas:', error));
+}
+
+ListarOficinas();

@@ -193,3 +193,77 @@ function deletarDepartamentoPorNome() {
         }
 }
 
+
+
+function ListarVoluntarios() {
+    var select = document.getElementById("responsavel");
+
+    fetch("http://localhost:8080/voluntario/allVoluntarios")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(voluntario => {
+                var option = document.createElement("option");
+                option.value = voluntario.nome;
+                option.text = voluntario.nome;
+                select.add(option);
+            });
+        })
+        .catch(error => console.error('Erro ao obter voluntarios:', error));
+}
+
+ListarVoluntarios();
+
+
+
+function ListaDepartamentos() {
+    var listaDepartamentos = document.getElementById("listaDepartamentos");
+
+    fetch("http://localhost:8080/departamento/AllDepartamentos")
+        .then(response => response.json())
+        .then(data => {
+            mostrarDepartamentos(data);
+            listaDepartamentos.style.display = "block"; 
+            listaDepartamentos.style.display = "block"; 
+            listaDepartamentos.style.listStyle = "none";
+            listaDepartamentos.style.padding = "10px";
+            listaDepartamentos.style.margin = "0";
+            listaDepartamentos.style.textAlign = "center";
+            listaDepartamentos.style.border = "1px solid #ccc";
+            listaDepartamentos.style.borderRadius = "8px";
+            listaDepartamentos.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.1)";
+        })
+        .catch(error => console.error('Erro ao obter voluntarios:', error));
+}
+
+function mostrarDepartamentos(departamento) {
+    var listaDepartamentosElement = document.getElementById("listaDepartamentos");
+    listaDepartamentosElement.innerHTML = ''; 
+    departamento.forEach(departamento => {
+        var listItem = document.createElement("li");
+        listItem.textContent = departamento.nome;
+        listaDepartamentosElement.appendChild(listItem);
+    });
+}
+
+function filtrarDepartamentos() {
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toUpperCase();
+
+    fetch("http://localhost:8080/departamento/AllDepartamentos")
+        .then(response => response.json())
+        .then(data => {
+            var departamentoFiltrados = data.filter(departamento =>
+                departamento.nome.toUpperCase().includes(filter)
+            );
+            mostrarDepartamentos(departamentoFiltrados);
+        })
+        .catch(error => console.error('Erro ao filtrar voluntarios:', error));
+}
+
+var searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("click", function() {
+    ListaDepartamentos();
+});
+
+var form = document.querySelector('.consultar');
+form.addEventListener('input', filtrarDepartamentos);

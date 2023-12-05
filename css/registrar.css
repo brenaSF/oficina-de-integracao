@@ -61,7 +61,7 @@ form{
 
 .form-registrar-voluntario{
 
-    height: 140vh;
+    height: 160vh;
 }
 
 
@@ -247,10 +247,10 @@ select{
 
 #form-atualizar-voluntario{
 
-    height: 150vh;
+    height: 160vh;
 }
 
 #form-atualizar-departamento{
 
-    height: 80vh;
+    height: 90vh;
 }

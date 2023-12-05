@@ -18,7 +18,7 @@ function closeModal() {
 
 
 function consultarDepartamentoPorNome() {
-    const nome = document.getElementById("searchInput").value;
+    const nome = document.getElementById("departamento").value;
 
     if (nome.trim() !== "") {
         fetch(`http://localhost:8080/departamento/nome/${nome}`, {
@@ -124,3 +124,27 @@ function ListarVoluntarios() {
 }
 
 ListarVoluntarios();
+
+
+function ListarDepartamentos() {
+    var select = document.getElementById("departamento");
+
+    fetch("http://localhost:8080/departamento/AllDepartamentos")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(departamento => {
+                var option = document.createElement("option");
+                option.value = departamento.nome;
+                option.text = departamento.nome;
+                select.add(option);
+            });
+        })
+        .catch(error => console.error('Erro ao obter departamentos:', error));
+
+        var select = document.getElementById("departamento");
+        console.log(select); 
+        
+}
+
+
+ListarDepartamentos();
