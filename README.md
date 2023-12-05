@@ -20,7 +20,7 @@ O ELLP (Ensino Lúdico de Lógica de Programação) é uma iniciativa da Univers
 1) Executar a extensão Go live do VScode para visualizar a aplicação web
 
 ### Para visualizar o SQL : 
-1) Criar banco no PostgreSQL como o nome "teste_oficina"
+1) Criar banco no PostgreSQL como o nome "teste"
 2) Mudar dados de USER em 'aplication.properties'
 3) Na aba lateral , navegar 'ellp_oficina\src\main\resources\db\migrations'
 4) Observação : Não mudar o script SQL das migrations, caso queira alterar , adicone uma nova migration. 
