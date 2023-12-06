@@ -38,7 +38,7 @@ function registrar() {
         },
         method: "POST",
         body: JSON.stringify({
-            nome_oficina: nome,
+            nome: nome,
             qt_participantes: qt_participantes,
             data_oficina: data_oficina,
             horarioinicio: horarioinicio,
