@@ -64,6 +64,7 @@ public class VoluntarioControllers {
         return ResponseEntity.ok().build();
     }
 
+    //Atualizar 
     @PutMapping("/{nome}")
     @Transactional
     public ResponseEntity atualizarVoluntario(@RequestBody @Valid RequestVoluntario data, @PathVariable String nome) {

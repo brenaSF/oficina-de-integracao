@@ -16,7 +16,6 @@ function closeModal() {
     document.getElementById("overlay").style.display = "none";
 }
 
-
 function consultarDepartamentoPorNome() {
     const nome = document.getElementById("departamento").value;
 
@@ -63,7 +62,6 @@ function updateDetailsInHTML(data) {
         <p>ID: ${data.id_departamento}</p>
         <p>Nome: ${data.nome}</p>
         <p>Responsavel: ${data.responsavel}</p>
-
     `;
 
 }
@@ -73,7 +71,6 @@ function updateDetailsDepartamento(departamento) {
     document.getElementById("responsavel").value = departamento.responsavel;
 
 }
-
 
 function atualizarDepartamentos() {
     const nome = document.querySelector(".nome").value;
@@ -106,7 +103,6 @@ function atualizarDepartamentos() {
 
 }
 
-
 function ListarVoluntarios() {
     var select = document.getElementById("responsavel");
 
@@ -124,7 +120,6 @@ function ListarVoluntarios() {
 }
 
 ListarVoluntarios();
-
 
 function ListarDepartamentos() {
     var select = document.getElementById("departamento");
@@ -145,6 +140,5 @@ function ListarDepartamentos() {
         console.log(select); 
         
 }
-
 
 ListarDepartamentos();

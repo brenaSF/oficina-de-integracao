@@ -57,6 +57,7 @@ function registrar() {
 
 
 function limpar() {
+    
     document.querySelector(".nome").value = "";
     document.querySelector(".ra").value = ""; 
     document.querySelector(".email").value = "";
@@ -138,14 +139,13 @@ function consultarVoluntarioPorNome() {
         })
         .then(data => {
             if (Array.isArray(data) && data.length > 0) {
-                // Se houver resultados, trate a lista de voluntários
                 data.forEach(voluntario => {
-                    updateDetailsInHTML(voluntario);
+                    mostrarDetalhesPopup(voluntario);
                     console.log("Detalhes do voluntário:", voluntario);
                 });
-                alert("Voluntários encontrados!");
+               
             } else {
-                alert("Nenhum voluntário encontrado.");
+                
             }
         })
         .catch(error => {
@@ -157,6 +157,59 @@ function consultarVoluntarioPorNome() {
     }
 }
 
+
+function mostrarDetalhesPopup(voluntario) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = `
+        <div class="popup-content">
+            <span class="close" onclick="fecharPopup(this)">X</span>
+            <p>Detalhes da voluntário:</p>
+            <p>ID: ${voluntario.id_voluntario}</p>
+            <p>Nome: ${voluntario.nome}</p>
+            <p>RA: ${voluntario.ra}</p>
+            <p>Email: ${voluntario.email}</p>
+            <p>Telefone: ${voluntario.telefone}</p>
+            <p>Curso: ${voluntario.curso}</p>
+            <p>Período: ${voluntario.periodo}</p>
+            <p>Departamento: ${voluntario.departamento}</p>
+            <p>Horas voluntariadas: ${voluntario.horas_voluntariadas}</p>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    popup.style.display = 'block';
+
+    const popupContent = popup.querySelector('.popup-content');
+    popupContent.style.borderRadius = '20px';
+    popupContent.style.backgroundColor = '#1e3a5e'; 
+    popupContent.style.color = '#ffffff';  
+    popupContent.style.padding = '20px';
+    popupContent.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';  
+
+    const closeButton = popup.querySelector('.close');
+    closeButton.style.color = '#ffffff';  
+    closeButton.style.fontSize = '24px';
+    closeButton.style.fontWeight = 'bold';
+    closeButton.style.cursor = 'pointer';
+
+    closeButton.addEventListener('mouseover', function () {
+        closeButton.style.color = '#ffd700';  
+    });
+
+    closeButton.addEventListener('mouseout', function () {
+        closeButton.style.color = '#ffffff';  
+    });
+}
+
+function fecharPopup(element) {
+    const popup = element.closest('.popup');
+    
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
 
 function updateDetailsInHTML(data) {
     const detailsElement = document.getElementById("voluntarioDetails");

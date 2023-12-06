@@ -115,8 +115,6 @@ function ListarDepartamentos() {
 
 ListarDepartamentos();
 
-
-
 function atualizarVoluntarios() {
     const nome = document.querySelector(".nome").value;
     const email = document.querySelector(".email").value;
@@ -164,7 +162,6 @@ function atualizarVoluntarios() {
         console.log("Atualização cancelada pelo usuário.");
     }
 
-    
 }
 
 function ListarVoluntarios() {

@@ -5,6 +5,7 @@ logoElement.addEventListener("click", function () {
     window.location.href = "principal.html"; 
 });
 
+
 function consultarOficinaPorNome() {
     const nome = document.getElementById("searchInput").value;
 

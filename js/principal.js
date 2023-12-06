@@ -16,15 +16,6 @@ function abrirPainelOficina() {
     }
 }
 
-function abrirPainelUsuario() {
-    var PainelUsuario = document.getElementById("PainelUsuario");
-    if (PainelUsuario.style.display === "none" || PainelUsuario.style.display === "") {
-        PainelUsuario.style.display = "block";
-    } else {
-        PainelUsuario.style.display = "none";
-    }
-}
-
 function abrirPainelDepartamento() {
     var PainelDepartamento = document.getElementById("PainelDepartamento");
     if (PainelDepartamento.style.display === "none" || PainelDepartamento.style.display === "") {

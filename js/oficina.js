@@ -20,10 +20,15 @@ function closeModal() {
 const formulario = document.querySelector("form");
 
 function registrar() {
+  
     const nome = document.querySelector(".nome").value;
+ 
     const qt_participantes = document.querySelector(".qt_participantes").value;
+    
     const data_oficina = document.querySelector(".data_oficina").value;
+   
     const horarioinicio = document.querySelector(".horarioinicio").value;
+    
     const horariofim = document.querySelector(".horariofim").value;
 
     fetch("http://localhost:8080/oficina", {
@@ -83,13 +88,17 @@ function consultarTodosOficina() {
         return response.json();
     })
     .then(data => {
+       
         console.log(data);
 
         const resultsDiv = document.getElementById("results");
+      
         resultsDiv.innerHTML = "";
 
         data.forEach(result => {
+           
             const resultElement = document.createElement("p");
+          
             resultsDiv.appendChild(resultElement);
          
             const table = document.querySelector(".table-container table");
@@ -97,21 +106,27 @@ function consultarTodosOficina() {
             const novaLinha = document.createElement("tr");
             
             for (const campo in result) {
+             
                 const novoCampo = document.createElement("td");
+            
                 novoCampo.textContent = result[campo];
+           
                 novaLinha.appendChild(novoCampo);
+          
             }
             
             table.appendChild(novaLinha);            
 
         });
+    
     })
+   
     .catch(error => {
+   
         console.error("Erro na solicitação:", error);
     });
+
 }
-
-
 
 consultarTodosOficina();
 
@@ -193,18 +208,18 @@ function mostrarDetalhesPopup(oficina) {
     popupContent.style.padding = '20px';
     popupContent.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';  
 
-    const closeButton = popup.querySelector('.close');
-    closeButton.style.color = '#ffffff';  
-    closeButton.style.fontSize = '24px';
-    closeButton.style.fontWeight = 'bold';
-    closeButton.style.cursor = 'pointer';
+    const fecharBotao = popup.querySelector('.close');
+    fecharBotao.style.color = '#ffffff';  
+    fecharBotao.style.fontSize = '24px';
+    fecharBotao.style.fontWeight = 'bold';
+    fecharBotao.style.cursor = 'pointer';
 
-    closeButton.addEventListener('mouseover', function () {
-        closeButton.style.color = '#ffd700';  
+    fecharBotao.addEventListener('mouseover', function () {
+        fecharBotao.style.color = '#ffd700';  
     });
 
-    closeButton.addEventListener('mouseout', function () {
-        closeButton.style.color = '#ffffff';  
+    fecharBotao.addEventListener('mouseout', function () {
+        fecharBotao.style.color = '#ffffff';  
     });
 }
 
@@ -215,9 +230,6 @@ function fecharPopup(element) {
         popup.style.display = 'none';
     }
 }
-
-
-
 
 function updateDetailsInHTML(data) {
 
@@ -265,8 +277,6 @@ function deletarOficinaPorNome() {
         console.error("Nome da oficina não pode estar vazio.");
     }
 }
-
-
 
 function ListarOficinas() {
     var listaOficinas = document.getElementById("listaOficinas");

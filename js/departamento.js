@@ -17,7 +17,6 @@ function closeModal() {
     document.getElementById("overlay").style.display = "none";
 }
 
-
 const formulario = document.querySelector("form");
 
 function registrar() {
@@ -46,7 +45,6 @@ function registrar() {
     });
 }
 
-
 function limpar() {
     document.querySelector(".nome").value = "";
     document.querySelector(".responsavel").value = ""; 
@@ -59,8 +57,6 @@ formulario.addEventListener("submit", function(event) {
     limpar();
 
 });
-
-
 
 function consultarTodos() {
     fetch("http://localhost:8080/departamento/AllDepartamentos", {
@@ -127,9 +123,9 @@ function consultarDepartamentoPorNome() {
 
             if (Array.isArray(data) && data.length > 0) {
 
-                data.forEach(voluntario => {
-                    updateDetailsInHTML(voluntario);
-                    console.log("Detalhes do departamento:", voluntario);
+                data.forEach(departamento => {
+                    mostrarDetalhesPopup(departamento)
+                    console.log("Detalhes do departamento:", departamento);
                 });
                 alert("Departamentos encontrados!");
             } else {
@@ -145,6 +141,54 @@ function consultarDepartamentoPorNome() {
     }
 }
 
+
+function mostrarDetalhesPopup(departamento) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = `
+        <div class="popup-content">
+            <span class="close" onclick="fecharPopup(this)">X</span>
+            <p>Detalhes de departamento:</p>
+            <p>ID: ${departamento.id_departamento}</p>
+            <p>Nome: ${departamento.nome}</p>
+            <p>Responsável: ${departamento.responsavel}</p>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    popup.style.display = 'block';
+
+    const popupContent = popup.querySelector('.popup-content');
+    popupContent.style.borderRadius = '20px';
+    popupContent.style.backgroundColor = '#1e3a5e'; 
+    popupContent.style.color = '#ffffff';  
+    popupContent.style.padding = '20px';
+    popupContent.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';  
+
+    const fecharBotao = popup.querySelector('.close');
+    fecharBotao.style.color = '#ffffff';  
+    fecharBotao.style.fontSize = '24px';
+    fecharBotao.style.fontWeight = 'bold';
+    fecharBotao.style.cursor = 'pointer';
+
+    fecharBotao.addEventListener('mouseover', function () {
+        fecharBotao.style.color = '#ffd700';  
+    });
+
+    fecharBotao.addEventListener('mouseout', function () {
+        fecharBotao.style.color = '#ffffff';  
+    });
+}
+
+function fecharPopup(element) {
+    const popup = element.closest('.popup');
+    
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
+
 function updateDetailsInHTML(data) {
     const detailsElement = document.getElementById("departamentoDetails");
 
@@ -155,42 +199,54 @@ function updateDetailsInHTML(data) {
 
     `;
 
-
 }
 
+function popupDeletar(departamento) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = `
+        <div class="popup-content">
+            <span class="close" onclick="fecharPopup(this)">X</span>
+            <p>Deseja excluir departamento:</p>
+            <p>ID: ${departamento.id_departamento}</p>
+            <p>Nome: ${departamento.nome}</p>
+            <p>Responsável: ${departamento.responsavel}</p>
+            <button onclick="confirmarExclusao('${departamento.nome}')">Confirmar</button>
+        </div>
+    `;
 
+    document.body.appendChild(popup);
+}
 
-function deletarDepartamentoPorNome() {
-    const nome = document.getElementById("searchInput").value;
+function confirmarExclusao(nome) {
+    const confirmacao = window.confirm(`Tem certeza de que deseja excluir o departamento "${nome}"?`);
+    
+    if (confirmacao) {
+        // Realiza a exclusão apenas se o usuário confirmar
+        fetch(`http://localhost:8080/departamento/deletarDepartamentoNome/${nome}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            console.log("Departamento deletado com sucesso!");
+            location.reload();
+        })
+        .catch(error => {
+            console.error("Erro ao deletar departamento por nome:", error);
+        });
+    } else {
+        console.log("Operação de exclusão cancelada pelo usuário.");
+    }
+}
 
-    if (nome.trim() !== "") {
-
-        const confirmacao = window.confirm(`Tem certeza de que deseja excluir a oficina "${nome}"?`);
-        if (confirmacao) {
-
-            fetch(`http://localhost:8080/departamento/deletarDepartamentoNome/${nome}`, {
-                method: "DELETE",
-                headers: {
-                    "Accept": "application/json"
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Erro na solicitação: ${response.status}`);
-                }
-                console.log("Departamento deletada com sucesso!");
-                location.reload(); 
-                
-            })
-            .catch(error => {
-                console.error("Erro ao deletar departamento por nome:", error);
-            });
-        } else {
-            console.log("Operação de exclusão cancelada pelo usuário.");
-        }
-        } else {
-            console.error("ID da oficina não pode estar vazio.");
-        }
+function fecharPopup(element) {
+    const popup = element.closest(".popup");
+    popup.remove();
 }
 
 
@@ -212,8 +268,6 @@ function ListarVoluntarios() {
 }
 
 ListarVoluntarios();
-
-
 
 function ListaDepartamentos() {
     var listaDepartamentos = document.getElementById("listaDepartamentos");
