@@ -8,23 +8,16 @@ CREATE TABLE oficina (
     active BOOLEAN
 );
 
-CREATE TABLE departamento (
-    
-    id_departamento SERIAL PRIMARY KEY,
-    nome  TEXT NOT NULL,
-    responsavel TEXT
-);
 
 CREATE TABLE voluntario (
     id_voluntario SERIAL PRIMARY KEY,
-    nome TEXT NOT NULL,
+    nome TEXT UNIQUE NOT NULL,
     ra TEXT NOT NULL,
     email TEXT NOT NULL,
     telefone TEXT NOT NULL,
     curso TEXT NOT NULL,
     periodo TEXT NOT NULL,
     horas_voluntariadas INT,
-    departamento_id INT REFERENCES departamento(id_departamento),
     active BOOLEAN
 );
 
@@ -36,6 +29,15 @@ CREATE TABLE login(
     active BOOLEAN
 
 );
+
+CREATE TABLE departamento (
+    
+    id_departamento SERIAL PRIMARY KEY,
+    nome  TEXT NOT NULL,
+    responsavel TEXT
+);
+
+
 
 UPDATE voluntario SET active = true;
 UPDATE oficina SET active = true;
@@ -51,84 +53,4 @@ ALTER TABLE login
 ALTER COLUMN id_login SET DATA TYPE TEXT;
 
 ALTER TABLE departamento
-ALTER COLUMN id_departamento SET DATA TYPE int ;
-
-ALTER TABLE departamento
-ADD CONSTRAINT nome UNIQUE (nome);
-
-ALTER TABLE voluntario
-ADD CONSTRAINT ra UNIQUE (ra);
-
-ALTER TABLE voluntario
-ADD CONSTRAINT email UNIQUE (email);
-
-CREATE OR REPLACE FUNCTION valida_departamento_id()
-RETURNS TRIGGER AS $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM departamento WHERE id_departamento = NEW.departamento_id) THEN
-        RAISE EXCEPTION 'Departamento % não existe na tabela departamento, por favor, insira um departamento existente', NEW.departamento_id;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER antes_de_inserir_voluntario
-BEFORE INSERT ON voluntario
-FOR EACH ROW
-EXECUTE FUNCTION valida_departamento_id();
-
-INSERT INTO oficina (nome_oficina, qt_participantes, data_oficina, horarioInicio, horarioFim, active)
-VALUES
-    ('Oficina de Robótica', 20, '2023-01-01', '10:00', '12:00', true),
-    ('Oficina de Linguagem de Programação', 15, '2023-01-02', '14:00', '16:00', true),
-    ('Oficina de Redes de Computadores', 25, '2023-01-03', '09:00', '11:00', true),
-    ('Oficina de Desenvolvimento Web', 18, '2023-01-04', '13:00', '15:00', true),
-    ('Oficina de Inteligência Artificial', 30, '2023-01-05', '11:00', '13:00', true),
-    ('Oficina de Banco de Dados', 22, '2023-01-06', '15:00', '17:00', true),
-    ('Oficina de Segurança da Informação', 12, '2023-01-07', '08:00', '10:00', true),
-    ('Oficina de Mobile App Development', 28, '2023-01-08', '12:00', '14:00', true),
-    ('Oficina de Sistemas Embarcados', 16, '2023-01-09', '16:00', '18:00', true),
-    ('Oficina de Análise de Algoritmos', 14, '2023-01-10', '10:30', '12:30', true);
-	
-INSERT INTO departamento (nome, responsavel)
-VALUES
-    ('Departamento de Desenvolvimento de Software', 'João da Silva'),
-    ('Departamento de Engenharia Biomimética', 'Maria Oliveira'),
-    ('Departamento de Computação Quântica', 'Pedro Santos'),
-    ('Departamento de Matemágica', 'Ana Rodrigues'),
-    ('Departamento de Robótica Avançada', 'Lucas Costa'),
-    ('Departamento de Energia Renovável', 'Beatriz Lima'),
-    ('Departamento de Ciências Cibernéticas', 'Rafael Almeida'),
-    ('Departamento de Inteligência Artificial Aplicada', 'Gustavo Souza'),
-    ('Departamento de Pesquisa em Ciência de Dados', 'Isabela Fernandes'),
-    ('Departamento de Engenharia Espacial', 'Carlos Pereira');
-	
-INSERT INTO login (nome, senha, active)
-VALUES
-    ('usuario1', 'senha123', true),
-    ('usuario2', 'senha456', true),
-    ('usuario3', 'senha789', true),
-    ('usuario4', 'senhaabc', true),
-    ('usuario5', 'senhaxyz', true),
-    ('usuario6', 'senhajkl', true),
-    ('usuario7', 'senha123', true),
-    ('usuario8', 'senhamno', true),
-    ('usuario9', 'senhapqr', true),
-    ('usuario10', 'senha456', true);
-	
-INSERT INTO voluntario (nome, ra, email, telefone, curso, periodo, horas_voluntariadas, departamento_id, active)
-VALUES
-    (' João', '111111', 'joao@email.com', '123456789', 'Engenharia de Software', '1º período', '10', 1, true),
-    (' Maria', '222222', 'maria@email.com', '987654321', 'Engenharia Mecânica', '2º período', '15', 2, true),
-    (' Pedro', '333333', 'pedro@email.com', '555555555', 'Ciência da Computação', '3º período', '8', 3, true),
-    (' Ana', '444444', 'ana@email.com', '777777777', 'Matemática', '4º período', '12', 4, true),
-    (' Lucas', '555555', 'lucas@email.com', '999999999', 'Engenharia Elétrica', '5º período', '20', 5, true),
-    (' Beatriz', '666666', 'beatriz@email.com', '111111111', 'Engenharia Elétrica', '6º período', '18', 6, true),
-    (' Rafael', '777777', 'rafael@email.com', '222222222', 'Engenharia  da Computação', '7º período', '25', 7, true),
-    (' Gustavo', '888888', 'gustavo@email.com', '333333333', 'Estatística', '8º período', '22', 8, true),
-    (' Isabela', '999999', 'isabela@email.com', '444444444', 'Engenharia Química', '9º período', '30', 9, true),
-    (' Carlos', '101010', 'carlos@email.com', '666666666', 'Engenharia Aeroespacial', '10º período', '14', 10, true);
-
-INSERT INTO voluntario (nome, ra, email, telefone, curso, periodo, horas_voluntariadas, departamento_id, active)
-VALUES
-('João', '111111', 'joao@email.com', '123456789', 'Engenharia de Software', '1º período', '10', 1, true);
+ALTER COLUMN id_departamento SET DATA TYPE TEXT;
