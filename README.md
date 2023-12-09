@@ -22,9 +22,5 @@ O ELLP (Ensino Lúdico de Lógica de Programação) é uma iniciativa da Univers
 ### Para visualizar o SQL : 
 1) Criar banco no PostgreSQL como o nome "teste"
 2) Mudar dados de USER em 'aplication.properties'
-3) Na aba lateral , navegar 'ellp_oficina\src\main\resources\db\migrations'
-4) Observação : Não mudar o script SQL das migrations, caso queira alterar , adicone uma nova migration. 
-Caso contrário, podem haver problemas de inconsistência no banco, devido ao FLyway.
-
-
+3) incluir o scriptSQL.txt
 
